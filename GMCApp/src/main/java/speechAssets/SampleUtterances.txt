@@ -1,0 +1,12 @@
+StartGMCIntent hello
+StartGMCIntent hi
+StartGMCIntent sup
+StartGMCIntent hey
+StartGMCIntent greetings
+
+GenericUpcomingEventsIntent what events are coming up
+GenericUpcomingEventsIntent what is happening
+GenericUpcomingEventsIntent what's happening
+GenericUpcomingEventsIntent what are upcoming events
+GenericUpcomingEventsIntent what are some upcoming events
+GenericUpcomingEventsIntent what the fuck is happening
