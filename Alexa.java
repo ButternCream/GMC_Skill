@@ -1,225 +1,133 @@
-'use strict';
 
-/**
- * This sample demonstrates a simple skill built with the Amazon Alexa Skills Kit.
- * The Intent Schema, Custom Slots, and Sample Utterances for this skill, as well as
- * testing instructions are located at http://amzn.to/1LzFrj6
- *
- * For additional samples, visit the Alexa Skills Kit Getting Started guide at
- * http://amzn.to/1LGWsLG
- */
+import com.amazon.speech.speechlet.IntentRequest;
+import com.amazon.speech.speechlet.Session;
+import com.amazon.speech.speechlet.SpeechletResponse;
+import com.neong.voice.model.base.Conversation;
 
 
-// --------------- Helpers that build all of the responses -----------------------
-
-function buildSpeechletResponse(title, output, repromptText, shouldEndSession) {
-    return {
-        outputSpeech: {
-            type: 'PlainText',
-            text: output,
-        },
-        card: {
-            type: 'Simple',
-            title: `SessionSpeechlet - ${title}`,
-            content: `SessionSpeechlet - ${output}`,
-        },
-        reprompt: {
-            outputSpeech: {
-                type: 'PlainText',
-                text: repromptText,
-            },
-        },
-        shouldEndSession,
-    };
-}
-
-function buildResponse(sessionAttributes, speechletResponse) {
-    return {
-        version: '1.0',
-        sessionAttributes,
-        response: speechletResponse,
-    };
-}
+public class GMCConversation extends Conversation {
+	//Intent names
+	private final static String INTENT_START = "StartGMCIntent";
+	private final static String INTENT_UPCOMING_GMC = "GenericUpcomingEventsIntent";
+	private final static String INTENT_DATE_GMC = "DateSpecifiedEventsIntent";
+	private final static String INTENT_SPECIFIC_EVENT_DETAILS = "SpecificEventDetailsIntent";
+	private final static String INTENT_SPECIFIC_EVENT_PURCHASE = "SpecificEventPurchaseIntent";
+	private final static String INTENT_YES = "AMAZON.YesIntent";
+	private final static String INTENT_NO = "AMAZON.NoIntent";
 
 
-// --------------- Functions that control the skill's behavior -----------------------
 
-function getWelcomeResponse(callback) {
-    // If we wanted to initialize the session to have some attributes we could add those here.
-    const sessionAttributes = {};
-    const cardTitle = 'Welcome';
-    const speechOutput = 'Welcome to the Alexa Skills Kit sample. ' +
-        'Please tell me your favorite color by saying, my favorite color is red';
-    // If the user either does not reply to the welcome message or says something that is not
-    // understood, they will be prompted again with this text.
-    const repromptText = 'Please tell me your favorite color by saying, ' +
-        'my favorite color is red';
-    const shouldEndSession = false;
+	//Slots
+	//We need slots for all the different events; I am not sure how to implement them. 
+	//private final static String SLOT_RELATIVE_TIME = "timeOfDay";
 
-    callback(sessionAttributes,
-        buildSpeechletResponse(cardTitle, speechOutput, repromptText, shouldEndSession));
-}
+	//State
+	//These can be used, I believe after prompting users for a response to avoid kicking back to default. 
+	private final static Integer STATE_WAITING_DETAILS = 100000;
+	private final static Integer STATE_WAITING_MORE_EVENTS = 100001;
 
-function handleSessionEndRequest(callback) {
-    const cardTitle = 'Session Ended';
-    const speechOutput = 'Thank you for trying the Alexa Skills Kit sample. Have a nice day!';
-    // Setting this to true ends the session and exits the skill.
-    const shouldEndSession = true;
-
-    callback({}, buildSpeechletResponse(cardTitle, speechOutput, null, shouldEndSession));
-}
-
-function createFavoriteColorAttributes(favoriteColor) {
-    return {
-        favoriteColor,
-    };
-}
-
-/**
- * Sets the color in the session and prepares the speech to reply to the user.
- */
-function setColorInSession(intent, session, callback) {
-    const cardTitle = intent.name;
-    const favoriteColorSlot = intent.slots.Color;
-    let repromptText = '';
-    let sessionAttributes = {};
-    const shouldEndSession = false;
-    let speechOutput = '';
-
-    if (favoriteColorSlot) {
-        const favoriteColor = favoriteColorSlot.value;
-        sessionAttributes = createFavoriteColorAttributes(favoriteColor);
-        speechOutput = `I now know your favorite color is ${favoriteColor}. You can ask me ` +
-            "your favorite color by saying, what's my favorite color?";
-        repromptText = "You can ask me your favorite color by saying, what's my favorite color?";
-    } else {
-        speechOutput = "I'm not sure what your favorite color is. Please try again.";
-        repromptText = "I'm not sure what your favorite color is. You can tell me your " +
-            'favorite color by saying, my favorite color is red';
-    }
-
-    callback(sessionAttributes,
-         buildSpeechletResponse(cardTitle, speechOutput, repromptText, shouldEndSession));
-}
-
-function getColorFromSession(intent, session, callback) {
-    let favoriteColor;
-    const repromptText = null;
-    const sessionAttributes = {};
-    let shouldEndSession = false;
-    let speechOutput = '';
-
-    if (session.attributes) {
-        favoriteColor = session.attributes.favoriteColor;
-    }
-
-    if (favoriteColor) {
-        speechOutput = `Your favorite color is ${favoriteColor}. Goodbye.`;
-        shouldEndSession = true;
-    } else {
-        speechOutput = "I'm not sure what your favorite color is, you can say, my favorite color " +
-            ' is red';
-    }
-
-    // Setting repromptText to null signifies that we do not want to reprompt the user.
-    // If the user does not respond or says something that is not understood, the session
-    // will end.
-    callback(sessionAttributes,
-         buildSpeechletResponse(intent.name, speechOutput, repromptText, shouldEndSession));
-}
-
-
-// --------------- Events -----------------------
-
-/**
- * Called when the session starts.
- */
-function onSessionStarted(sessionStartedRequest, session) {
-    console.log(`onSessionStarted requestId=${sessionStartedRequest.requestId}, sessionId=${session.sessionId}`);
-}
-
-/**
- * Called when the user launches the skill without specifying what they want.
- */
-function onLaunch(launchRequest, session, callback) {
-    console.log(`onLaunch requestId=${launchRequest.requestId}, sessionId=${session.sessionId}`);
-
-    // Dispatch to your skill's launch.
-    getWelcomeResponse(callback);
-}
-
-/**
- * Called when the user specifies an intent for this skill.
- */
-function onIntent(intentRequest, session, callback) {
-    console.log(`onIntent requestId=${intentRequest.requestId}, sessionId=${session.sessionId}`);
-
-    const intent = intentRequest.intent;
-    const intentName = intentRequest.intent.name;
-
-    // Dispatch to your skill's intent handlers
-    if (intentName === 'MyColorIsIntent') {
-        setColorInSession(intent, session, callback);
-    } else if (intentName === 'WhatsMyColorIntent') {
-        getColorFromSession(intent, session, callback);
-    } else if (intentName === 'AMAZON.HelpIntent') {
-        getWelcomeResponse(callback);
-    } else if (intentName === 'AMAZON.StopIntent' || intentName === 'AMAZON.CancelIntent') {
-        handleSessionEndRequest(callback);
-    } else {
-        throw new Error('Invalid intent');
-    }
-}
-
-/**
- * Called when the user ends the session.
- * Is not called when the skill returns shouldEndSession=true.
- */
-function onSessionEnded(sessionEndedRequest, session) {
-    console.log(`onSessionEnded requestId=${sessionEndedRequest.requestId}, sessionId=${session.sessionId}`);
-    // Add cleanup logic here
-}
-
-
-// --------------- Main handler -----------------------
-
-// Route the incoming request based on type (LaunchRequest, IntentRequest,
-// etc.) The JSON body of the request is provided in the event parameter.
-exports.handler = (event, context, callback) => {
-    try {
-        console.log(`event.session.application.applicationId=${event.session.application.applicationId}`);
-
-        /**
-         * Uncomment this if statement and populate with your skill's application ID to
-         * prevent someone else from configuring a skill that sends requests to this function.
-         */
-        /*
-        if (event.session.application.applicationId !== 'amzn1.echo-sdk-ams.app.[unique-value-here]') {
-             callback('Invalid Application ID');
+	//Session state storage key
+	//**What is this for? Never used again in Jeff's code.**
+	//private final static String SESSION_KNOCK_STATE = "knockState";
+	
+	public GMCConversation() {
+		super();
+		
+		//Add custom intent names for dispatcher use
+		//**I don't have a list of our functions made @ last meeting, is anything missing?**
+		supportedIntentNames.add(INTENT_START);
+		supportedIntentNames.add(INTENT_UPCOMING_GNC);
+		supportedIntentNames.add(INTENT_DATE_GMS);
+		supportedIntentNames.add(INTENT_SPECIFIC_EVENT_DETAILS);
+		supportedIntentNames.add(INTENT_SPECIFIC_EVENT_PURCHASE);
+	}
+	
+	@Override
+	public SpeechletResponse respondToIntentRequest(IntentRequest intentReq, Session session) {
+		Intent intent = intentReq.getIntent();
+		String intentName = (intent != null) ? intent.getName() : null;
+		SpeechletResponse response = null;
+		
+		if (INTENT_START.equals(intentName)) {
+			response = handleGMCIntentStart(intentReq, session);
         }
-        */
-
-        if (event.session.new) {
-            onSessionStarted({ requestId: event.request.requestId }, event.session);
+		else if (INTENT_UPCOMING_GMC.equals(intentName)) {
+			response = handleGenericUpcomingIntent(intentReq, session);
         }
-
-        if (event.request.type === 'LaunchRequest') {
-            onLaunch(event.request,
-                event.session,
-                (sessionAttributes, speechletResponse) => {
-                    callback(null, buildResponse(sessionAttributes, speechletResponse));
-                });
-        } else if (event.request.type === 'IntentRequest') {
-            onIntent(event.request,
-                event.session,
-                (sessionAttributes, speechletResponse) => {
-                    callback(null, buildResponse(sessionAttributes, speechletResponse));
-                });
-        } else if (event.request.type === 'SessionEndedRequest') {
-            onSessionEnded(event.request, event.session);
-            callback();
+		else if (INTENT_DATE_GMC.equals(intentName)) {
+			response = handleDateSpecifiedIntent(intentReq, session);
         }
-    } catch (err) {
-        callback(err);
-    }
-};
+		else if (INTENT_SPECIFIC_EVENT_DETAILS.equals(intentName)) {
+			response = handleSpecificEventDetailsIntent(intentReq, session);
+        }
+		else if (INTENT_SPECIFIC_EVENT_PURCHASE.equals(intentName)) {
+			response = handleSpecificEventPurchaseIntent(intentReq, session);
+        }
+		else {
+			response = newTellResponse("Sorry, I didn't get that. I can list upcoming events or tell you about specific events.", false);
+		}
+		
+		return response;
+	}
+	
+	//Pre: Takes in generic call to GMC skill
+	//Post: Pompts user to ask about upcoming events
+	private SpeechletResponse handleGMCIntentStart(IntentRequest intentReq, Session session) {
+		SpeechletResponse response = newAskResponse("Hello, I am GMC event helper, would you like to hear about upcoming events?", false, "You can also specify a date to hear events around", false);
+		String intentName = (intent != null) ? intent.getName() : null;
+		if (INTENT_YES.equals(intentName)){
+			response = handleGenericUpcomingIntent(intentReq, session);
+		} else if (INTENT_UPCOMING_GMC.equals(intentName)){
+			response = handleGenericUpcomingIntent(intentReq, session);
+		} 
+		else if (INTENT_DATE_GMC.equals(intentName)){
+			response = handleDateSpecifiedIntent(intentReq, session);
+		} else if (INTENT_NO.equals(intentName)){
+			SpeechletResponse response = newAskResponse("I won't bother you again, bitch");
+		}
+		else {
+			SpeechletResponse response = newAskResponse("I didn't get that, please try again");
+			//I'm not positive this call will work the way I hope it to, this may be the default 
+			response = respondToIntentRequest(intentReq, session);
+		}
+		//Idk what the fuck this does
+		//session.setAttribute(SESSION_KNOCK_STATE, STATE_WAITING_WHO_DER);
+
+	}
+	
+	//Pre: Takes a generic request for upcoming events
+	//Post: Lists three most recent events, prompts user to ask about a specific event or ask for more events
+	private SpeechletResponse handleGenericUpcomingIntent(IntentRequest intentReq, Session session) {
+		SpeechletResponse response = newAskResponse("The next three events are event one, event two, and event three.", false, "You can ask about a specific event or events for other dates.", false);
+		String intentName = (intent != null) ? intent.getName() : null;
+			if (INTENT_DATE_GMC.equals(intentName)){
+				response = handleDateSpecifiedIntent(intentReq, session);
+			} else if()
+
+	}
+	
+	//Pre: 	Takes a request for events on or around a specified date.
+	//		**I think this declaration needs to change to accept Amazon.date slot**
+	//Post: Lists events in specified range, or explains there are no events in range and presents user
+	//	    with three events closest to desired date.
+	private SpeechletResponse handleDateSpecifiedIntent(IntentRequest intentReq, Session session) {
+
+	}
+	
+	//Pre: Takes a request for details about a specified Event
+	//		**This needs to be changed to accept a specific event as a slot, that slot needs to be defined above**
+	//Post: Reads a one or two sentace description of the event specified, prompts user to purchase tickets. 
+	private SpeechletResponse handleSpecificEventDetailsIntent(IntentRequest intentReq, Session session) {
+
+	}
+	
+	//Pre: Takes a request to purchase tickets for specific event
+	//		**This needs to be changed to accept a specific event as a slot, that slot needs to be defined above**
+	//Post: if(personal){Asks user for confirmation they'd like to purchase ticket, bills their amazon account for the 
+	//		ticket and sends the ticket to user's amazon email}**How do we tie this to amazon acct/email?**
+	// 		else{prompt user for their email and sends link to purchase tickets to aforementioned email.
+	//		**We may want to fork this call to give options for ticketing levels, ask about #of tickets to purchase**
+	private SpeechletResponse handleSpecificEventPurchaseIntent(IntentRequest intentReq, Session session) {
+
+	}
+	
