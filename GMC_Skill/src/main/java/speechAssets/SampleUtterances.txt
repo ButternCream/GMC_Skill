@@ -1,0 +1,25 @@
+GenericUpcomingEventsIntent What events are coming up
+GenericUpcomingEventsIntent To list upcoming events
+GenericUpcomingEventsIntent What's going on
+GenericUpcomingEventsIntent Who's playing
+GenericUpcomingEventsIntent What's playing
+
+
+DateSpecifiedEventsIntent to tell me events on {dateSpecified}
+DateSpecifiedEventsIntent {dateSpecified}
+DateSpecifiedEventsIntent what's playing {dateSpecified}
+DateSpecifiedEventsIntent who's playing {dateSpecified}
+
+//Common Intents
+AMAZON.NoIntent nope
+AMAZON.NoIntent no way
+AMAZON.NoIntent hell no
+AMAZON.NoIntent niet
+
+AMAZON.YesIntent for sure
+AMAZON.YesIntent absolutely
+AMAZON.YesIntent why not
+AMAZON.YesIntent yes let's
+AMAZON.YesIntent sure
+AMAZON.YesIntent of course
+AMAZON.YesIntent go ahead

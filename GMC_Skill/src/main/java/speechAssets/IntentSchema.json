@@ -1,0 +1,53 @@
+{
+  "intents": [
+    {
+      "intent": "StartGMCIntent"
+    },
+    {
+      "intent": "GenericUpcomingEventsIntent"
+    },
+    {
+      "intent": "SpecificEventDetailsIntent",
+      "slots": [
+        {
+          "name": "specificEvent",
+          "type": "EVENT_NAME"
+        }
+      ]
+    },
+    {
+      "intent": "SpecificEventPurchaseIntent",
+      "slots": [
+        {
+          "name": "specificEvent",
+          "type": "EVENT_NAME"
+        }
+      ]
+    },
+    {
+      "intent": "AMAZON.YesIntent"
+    },
+    {
+      "intent": "AMAZON.NoIntent"
+    },
+    {
+      "intent": "AMAZON.HelpIntent"
+    },
+    {
+      "intent": "AMAZON.StopIntent"
+    },
+    {
+      "intent": "AMAZON.CancelIntent"
+    },
+    {
+      "intent": "DateSpecifiedEventsIntent",
+      "slots": [
+
+        {
+          "name": "dateSpecified",
+          "type": "AMAZON.DATE"
+        }
+      ]
+    }
+  ]
+}
