@@ -3,12 +3,34 @@ GenericUpcomingEventsIntent To list upcoming events
 GenericUpcomingEventsIntent What's going on
 GenericUpcomingEventsIntent Who's playing
 GenericUpcomingEventsIntent What's playing
+GenericUpcomingEventsIntent What is there to do
+GenericUpcomingEventsIntent What can I go to
+GenericUpcomingEventsIntent If there's anything to do
+GenericUpcomingEventsIntent If there's anything to go to
+GenericUpcomingEventsIntent What's coming up
+GenericUpcomingEventsIntent If there's anything to attend
+GenericUpcomingEventsIntent What's there to attend
+GenericUpcomingEventsIntent If there's anything entertaining happening
+GenericUpcomingEventsIntent For a list of upcoming events
 
 
 DateSpecifiedEventsIntent to tell me events on {dateSpecified}
 DateSpecifiedEventsIntent {dateSpecified}
 DateSpecifiedEventsIntent what's playing {dateSpecified}
 DateSpecifiedEventsIntent who's playing {dateSpecified}
+DateSpecifiedEventsIntent What's going on {dateSpecified}
+DateSpecifiedEventsIntent What's happening {dateSpecified}
+DateSpecifiedEventsIntent What can I do {dateSpecified}
+DateSpecifiedEventsIntent What can I go to {dateSpecified}
+DateSpecifiedEventsIntent Is there anything to do {dateSpecified}
+DateSpecifiedEventsIntent Is there anything to go to {dateSpecified}
+DateSpecifiedEventsIntent What's coming up {dateSpecified}
+DateSpecifiedEventsIntent Is there anything to attend {dateSpecified}
+DateSpecifiedEventsIntent What's there to attend {dateSpecified}
+DateSpecifiedEventsIntent If there's anything entertaining happening {dateSpecified}
+DateSpecifiedEventsIntent For a list of events {dateSpecified}
+DateSpecifiedEventsIntent For events {dateSpecified}
+DateSpecifiedEventsIntent For a list of events taking place {dateSpecified}
 
 //Common Intents
 AMAZON.NoIntent nope
