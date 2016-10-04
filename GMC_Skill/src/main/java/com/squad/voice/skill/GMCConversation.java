@@ -110,9 +110,9 @@ public class GMCConversation extends Conversation {
 	//Pre: Takes a generic request for upcoming events
 	//Post: Lists three most recent events, prompts user to ask about a specific event or ask for more events
 	private SpeechletResponse handleGenericUpcomingIntent(IntentRequest intentReq, Session session) {
-		SpeechletResponse response = newAskResponse("The next three events are a presentation: Sonoma State university sustainability" +
-				" day, on October 18th; A performance: Itzhak Perlman and Rohan De Selva, on October 20th; and a Performance: " +
-				"Denis Matsuev, on October 22th", false, "You can ask about a specific event or events for other dates.", false);
+		SpeechletResponse response = newAskResponse("The next three events are a comedy show: funny or die jokes for votes, on" +
+				" October 6th; A performance: Philharmonia Baroque Orchestra, on October 15th; and a talk by " +
+				"Adam Savage, on October 17th", false, "You can ask about a specific event or events for other dates.", false);
 		session.setAttribute(SESSION_EVENT_STATE, STATE_GIVEN_EVENTS);
 		return response;
 
@@ -123,7 +123,9 @@ public class GMCConversation extends Conversation {
 	//Post: Lists events in specified range, or explains there are no events in range and presents user
 	//	    with three events closest to desired date.
 	private SpeechletResponse handleDateSpecifiedIntent(IntentRequest intentReq, Session session) {
-		SpeechletResponse response = newAskResponse("This isn't implemented yet.", false, "You can ask about a .", false);
+		SpeechletResponse response = newAskResponse("The next three events for that range are a comedy show: funny or die jokes for votes, on" +
+				" October 6th; A performance: Philharmonia Baroque Orchestra, on October 15th; and a talk by " +
+				"Adam Savage, on October 17th", false, "You can ask about a specific event or events for other dates.", false);
 		session.setAttribute(SESSION_EVENT_STATE, STATE_GIVEN_EVENTS);
 
 		return response;
@@ -154,27 +156,27 @@ public class GMCConversation extends Conversation {
 						" them for this all-Beethoven program is Robert Levin on fortepiano. It starts at 7:30 and costs 35" +
 						" dollars", false, "Do you need me to repeat that?", false);
 				break;
-			case "adam savage":
+			case "Adam savage":
 				response = newAskResponse("Mythbusters' 160-and-counting episode hours have tackled over 750 myths and performed " +
 						"nearly 2,500 experiments. Adam and Jamie travel the country to corporate events, museums, and colleges," +
 						" for groups as small as 20 and as large as 20,000, telling tales of experiments, explosions and hijinks. " +
 						"It starts at 7:30 and costs 35 dollars.", false, "Do you need me to repeat that?", false);
 				break;
-			case "sonoma state university sustainability day":
+			case "Sonoma state university sustainability day":
 				response = newAskResponse("Over the past three decades, Bill McKibben has shaped public perception—and public " +
 						"action—on climate change, alternative energy, and the need for localized economies. An environmental" +
 						" activist, bestselling author, and the planet's best green journalist, McKibben is the founder of " +
 						"350.org, the massive grassroots climate change initiative. This event starts at 7:30 and costs 20" +
 						" dollars.", false, "Do you need me to repeat that?", false);
 				break;
-			case "itzhak perlman and rohan de silva":
+			case "Itzhak Perlman and Rohan de Silva":
 				response = newAskResponse("Undeniably the reigning virtuoso of the violin, Itzhak Perlman enjoys superstar" +
 						" status rarely afforded a classical musician. Beloved for his charm and humanity as well as his " +
 						"talent, he is treasured by audiences throughout the world who respond not only to his remarkable " +
 						"artistry but also to his irrepressible joy for making music. It starts at 7:30 and costs 50 " +
 						"dollars.", false, "Do you need me to repeat that?", false);
 				break;
-			case "denis matsuev":
+			case "Denis matsuev":
 				response = newAskResponse("Winner of the prestigious Tchaikovsky Competition, Denis Matsuev is “a virtuoso " +
 						"in the grandest of Russian pianistic tradition,” and one of the most highly-regarded pianists of his" +
 						" generation. His captivating live performances showcase his unique ability to move seamlessly between" +
@@ -192,15 +194,16 @@ public class GMCConversation extends Conversation {
 	}
 
 	private SpeechletResponse handleMoreEventsIntent(IntentRequest intentReq, Session session) {
+		SpeechletResponse response = null;
 		if(session.getAttribute(SESSION_EVENT_STATE) != null
 				&& STATE_GIVEN_EVENTS.compareTo((Integer)session.getAttribute(SESSION_EVENT_STATE)) == 0) {
-			SpeechletResponse response = newAskResponse("The next three events are a comedy show: funny or die jokes for votes, on" +
-					" October 6th; A performance: Philharmonia Baroque Orchestra, on October 15th; and a talk by " +
-					"Adam Savage, on October 17th", false, "You can ask about a specific event or events for other dates.", false);
+			response = newAskResponse("The next three events are a presentation: Sonoma State university sustainability" +
+					" day, on October 18th; A performance: Itzhak Perlman and Rohan De Selva, on October 20th; and a Performance:" +
+					" Denis Matsuev, on October 22th", false, "You can ask about a specific event or events for other dates.", false);
 			session.setAttribute(SESSION_EVENT_STATE, STATE_GIVEN_EVENTS);
 		}
 		else {
-
+			response = newTellResponse("You have to ask for a list of events before I can tell you more.", false);
 		}
 		return response;
 
@@ -219,4 +222,3 @@ public class GMCConversation extends Conversation {
 
 	}
 }
-	
