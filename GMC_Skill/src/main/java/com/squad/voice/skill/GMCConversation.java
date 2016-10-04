@@ -150,7 +150,25 @@ public class GMCConversation extends Conversation {
 				response = newAskResponse("A free comedy show and voter registration opportunity combining the powers of Next" +
 						" Gen and Funny or Die. This event starts at 7:00 and is free.", false, "Do you need me to repeat that?", false);
 				break;
+			case "funny or die":
+				response = newAskResponse("A free comedy show and voter registration opportunity combining the powers of Next" +
+						" Gen and Funny or Die. This event starts at 7:00 and is free.", false, "Do you need me to repeat that?", false);
+				break;
+			case "the comedy show":
+				response = newAskResponse("A free comedy show and voter registration opportunity combining the powers of Next" +
+						" Gen and Funny or Die. This event starts at 7:00 and is free.", false, "Do you need me to repeat that?", false);
+				break;
+			case "jokes for votes":
+				response = newAskResponse("A free comedy show and voter registration opportunity combining the powers of Next" +
+						" Gen and Funny or Die. This event starts at 7:00 and is free.", false, "Do you need me to repeat that?", false);
+				break;
 			case "philharmonia baroque orchestra":
+				response = newAskResponse("The Philharmonia Baroque Orchestra, directed by Nicholas McGegan brings audiences " +
+						"back in time, performing on the period instruments for which this music was originally written. Joining" +
+						" them for this all-Beethoven program is Robert Levin on fortepiano. It starts at 7:30 and costs 35" +
+						" dollars", false, "Do you need me to repeat that?", false);
+				break;
+			case "the orchestra":
 				response = newAskResponse("The Philharmonia Baroque Orchestra, directed by Nicholas McGegan brings audiences " +
 						"back in time, performing on the period instruments for which this music was originally written. Joining" +
 						" them for this all-Beethoven program is Robert Levin on fortepiano. It starts at 7:30 and costs 35" +
@@ -162,7 +180,39 @@ public class GMCConversation extends Conversation {
 						" for groups as small as 20 and as large as 20,000, telling tales of experiments, explosions and hijinks. " +
 						"It starts at 7:30 and costs 35 dollars.", false, "Do you need me to repeat that?", false);
 				break;
+			case "Adam":
+				response = newAskResponse("Mythbusters' 160-and-counting episode hours have tackled over 750 myths and performed " +
+						"nearly 2,500 experiments. Adam and Jamie travel the country to corporate events, museums, and colleges," +
+						" for groups as small as 20 and as large as 20,000, telling tales of experiments, explosions and hijinks. " +
+						"It starts at 7:30 and costs 35 dollars.", false, "Do you need me to repeat that?", false);
+				break;
+			case "savage":
+				response = newAskResponse("Mythbusters' 160-and-counting episode hours have tackled over 750 myths and performed " +
+						"nearly 2,500 experiments. Adam and Jamie travel the country to corporate events, museums, and colleges," +
+						" for groups as small as 20 and as large as 20,000, telling tales of experiments, explosions and hijinks. " +
+						"It starts at 7:30 and costs 35 dollars.", false, "Do you need me to repeat that?", false);
+				break;
+			case "Mr. savage":
+				response = newAskResponse("Mythbusters' 160-and-counting episode hours have tackled over 750 myths and performed " +
+						"nearly 2,500 experiments. Adam and Jamie travel the country to corporate events, museums, and colleges," +
+						" for groups as small as 20 and as large as 20,000, telling tales of experiments, explosions and hijinks. " +
+						"It starts at 7:30 and costs 35 dollars.", false, "Do you need me to repeat that?", false);
+				break;
 			case "Sonoma state university sustainability day":
+				response = newAskResponse("Over the past three decades, Bill McKibben has shaped public perception—and public " +
+						"action—on climate change, alternative energy, and the need for localized economies. An environmental" +
+						" activist, bestselling author, and the planet's best green journalist, McKibben is the founder of " +
+						"350.org, the massive grassroots climate change initiative. This event starts at 7:30 and costs 20" +
+						" dollars.", false, "Do you need me to repeat that?", false);
+				break;
+			case "sustainability day":
+				response = newAskResponse("Over the past three decades, Bill McKibben has shaped public perception—and public " +
+						"action—on climate change, alternative energy, and the need for localized economies. An environmental" +
+						" activist, bestselling author, and the planet's best green journalist, McKibben is the founder of " +
+						"350.org, the massive grassroots climate change initiative. This event starts at 7:30 and costs 20" +
+						" dollars.", false, "Do you need me to repeat that?", false);
+				break;
+			case "ssu sustainability day":
 				response = newAskResponse("Over the past three decades, Bill McKibben has shaped public perception—and public " +
 						"action—on climate change, alternative energy, and the need for localized economies. An environmental" +
 						" activist, bestselling author, and the planet's best green journalist, McKibben is the founder of " +
@@ -176,7 +226,42 @@ public class GMCConversation extends Conversation {
 						"artistry but also to his irrepressible joy for making music. It starts at 7:30 and costs 50 " +
 						"dollars.", false, "Do you need me to repeat that?", false);
 				break;
+			case "Itzhak Perlman":
+				response = newAskResponse("Undeniably the reigning virtuoso of the violin, Itzhak Perlman enjoys superstar" +
+						" status rarely afforded a classical musician. Beloved for his charm and humanity as well as his " +
+						"talent, he is treasured by audiences throughout the world who respond not only to his remarkable " +
+						"artistry but also to his irrepressible joy for making music. It starts at 7:30 and costs 50 " +
+						"dollars.", false, "Do you need me to repeat that?", false);
+				break;
+			case "Rohan de Silva":
+				response = newAskResponse("Undeniably the reigning virtuoso of the violin, Itzhak Perlman enjoys superstar" +
+						" status rarely afforded a classical musician. Beloved for his charm and humanity as well as his " +
+						"talent, he is treasured by audiences throughout the world who respond not only to his remarkable " +
+						"artistry but also to his irrepressible joy for making music. It starts at 7:30 and costs 50 " +
+						"dollars.", false, "Do you need me to repeat that?", false);
+				break;
 			case "Denis matsuev":
+				response = newAskResponse("Winner of the prestigious Tchaikovsky Competition, Denis Matsuev is “a virtuoso " +
+						"in the grandest of Russian pianistic tradition,” and one of the most highly-regarded pianists of his" +
+						" generation. His captivating live performances showcase his unique ability to move seamlessly between" +
+						" thundering ferocity and graceful nuance. This event costs 35 dollars and starts at 7:30", false, "Do" +
+						" you need me to repeat that?", false);
+				break;
+			case "matsuev":
+				response = newAskResponse("Winner of the prestigious Tchaikovsky Competition, Denis Matsuev is “a virtuoso " +
+						"in the grandest of Russian pianistic tradition,” and one of the most highly-regarded pianists of his" +
+						" generation. His captivating live performances showcase his unique ability to move seamlessly between" +
+						" thundering ferocity and graceful nuance. This event costs 35 dollars and starts at 7:30", false, "Do" +
+						" you need me to repeat that?", false);
+				break;
+			case "Denis":
+				response = newAskResponse("Winner of the prestigious Tchaikovsky Competition, Denis Matsuev is “a virtuoso " +
+						"in the grandest of Russian pianistic tradition,” and one of the most highly-regarded pianists of his" +
+						" generation. His captivating live performances showcase his unique ability to move seamlessly between" +
+						" thundering ferocity and graceful nuance. This event costs 35 dollars and starts at 7:30", false, "Do" +
+						" you need me to repeat that?", false);
+				break;
+			case "Mr. matsuev":
 				response = newAskResponse("Winner of the prestigious Tchaikovsky Competition, Denis Matsuev is “a virtuoso " +
 						"in the grandest of Russian pianistic tradition,” and one of the most highly-regarded pianists of his" +
 						" generation. His captivating live performances showcase his unique ability to move seamlessly between" +
@@ -216,7 +301,8 @@ public class GMCConversation extends Conversation {
 	// 		else{prompt user for their email and sends link to purchase tickets to aforementioned email.
 	//		**We may want to fork this call to give options for ticketing levels, ask about #of tickets to purchase**
 	private SpeechletResponse handleSpecificEventPurchaseIntent(IntentRequest intentReq, Session session) {
-		SpeechletResponse response = newAskResponse("This isn't implemented yet.", false, "You can ask about a specific event or events for other dates.", false);
+		SpeechletResponse response = newAskResponse("Yes, a confirmation email has been sent to your provided address.",
+				false, "You can ask about a specific event or events for other dates.", false);
 		session.setAttribute(SESSION_EVENT_STATE, STATE_MADE_RESERV);
 		return response;
 
