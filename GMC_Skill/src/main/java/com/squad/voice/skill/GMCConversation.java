@@ -11,7 +11,7 @@ import java.util.Map;
 
 
 public class GMCConversation extends Conversation {
-	//Intent names
+	// Intent names
 	private final static String INTENT_START = "StartGMCIntent";
 	private final static String INTENT_UPCOMING_GMC = "GenericUpcomingEventsIntent";
 	private final static String INTENT_DATE_GMC = "DateSpecifiedEventsIntent";
@@ -25,17 +25,19 @@ public class GMCConversation extends Conversation {
 	private final static String INTENT_CANCEL = "AMAZON.CancelIntent";
 
 
-	//Slots
+	// Slots
 	private final static String EVENT_NAME = "specificEvent";
 	private final static String DATE = "dateSpecified";
 
-	//State
-	//These can be used, I believe after prompting users for a response to avoid kicking back to default. 
-	private final static Integer STATE_WAITING_DETAILS = 100000;
-	private final static Integer STATE_WAITING_MORE_EVENTS = 100001;
+	// State
+	// These can be used to change the state of the conversation
+	private final static Integer STATE_GIVEN_DETAILS = 100000;
+	private final static Integer STATE_GIVEN_EVENTS = 100001;
 	private final static Integer STATE_WAITING_FOR_EVENT_REQ = 100002;
+	private final static Integer STATE_MADE_RESERV = 100003;
 
-	//Session state storage key
+	// Session state storage key
+	// Im still not sure what this does, I think it prevents the session from terminating
 	private final static String SESSION_EVENT_STATE = "eventState";
 
 
@@ -86,7 +88,7 @@ public class GMCConversation extends Conversation {
 			response = handleSpecificEventPurchaseIntent(intentReq, session);
 		}
 		else {
-			response = newTellResponse("Sorry, I didn't get that. I can list upcoming events or tell you about specific events.", false);
+			response = newTellResponse("Sorry, I didn't get that.", false);
 		}
 
 		return response;
@@ -111,7 +113,7 @@ public class GMCConversation extends Conversation {
 		SpeechletResponse response = newAskResponse("The next three events are a presentation: Sonoma State university sustainability" +
 				" day, on October 18th; A performance: Itzhak Perlman and Rohan De Selva, on October 20th; and a Performance: " +
 				"Denis Matsuev, on October 22th", false, "You can ask about a specific event or events for other dates.", false);
-		session.setAttribute(SESSION_EVENT_STATE, STATE_WAITING_MORE_EVENTS);
+		session.setAttribute(SESSION_EVENT_STATE, STATE_GIVEN_EVENTS);
 		return response;
 
 	}
@@ -121,8 +123,8 @@ public class GMCConversation extends Conversation {
 	//Post: Lists events in specified range, or explains there are no events in range and presents user
 	//	    with three events closest to desired date.
 	private SpeechletResponse handleDateSpecifiedIntent(IntentRequest intentReq, Session session) {
-		SpeechletResponse response = newAskResponse("This isn't implemented yet.", false, "You can ask about a specific event or events for other dates.", false);
-		session.setAttribute(SESSION_EVENT_STATE, STATE_WAITING_MORE_EVENTS);
+		SpeechletResponse response = newAskResponse("This isn't implemented yet.", false, "You can ask about a .", false);
+		session.setAttribute(SESSION_EVENT_STATE, STATE_GIVEN_EVENTS);
 
 		return response;
 
@@ -142,37 +144,37 @@ public class GMCConversation extends Conversation {
 		// but for now its hardcoded
 
 		switch (event){
-			case "Funny or Die jokes for votes":
+			case "funny or die jokes for votes":
 				response = newAskResponse("A free comedy show and voter registration opportunity combining the powers of Next" +
 						" Gen and Funny or Die. This event starts at 7:00 and is free.", false, "Do you need me to repeat that?", false);
 				break;
-			case "Philharmonia Baroque Orchestra":
+			case "philharmonia baroque orchestra":
 				response = newAskResponse("The Philharmonia Baroque Orchestra, directed by Nicholas McGegan brings audiences " +
 						"back in time, performing on the period instruments for which this music was originally written. Joining" +
 						" them for this all-Beethoven program is Robert Levin on fortepiano. It starts at 7:30 and costs 35" +
 						" dollars", false, "Do you need me to repeat that?", false);
 				break;
-			case "Adam Savage":
+			case "adam savage":
 				response = newAskResponse("Mythbusters' 160-and-counting episode hours have tackled over 750 myths and performed " +
 						"nearly 2,500 experiments. Adam and Jamie travel the country to corporate events, museums, and colleges," +
 						" for groups as small as 20 and as large as 20,000, telling tales of experiments, explosions and hijinks. " +
 						"It starts at 7:30 and costs 35 dollars.", false, "Do you need me to repeat that?", false);
 				break;
-			case "Sonoma State University sustainability day":
+			case "sonoma state university sustainability day":
 				response = newAskResponse("Over the past three decades, Bill McKibben has shaped public perception—and public " +
 						"action—on climate change, alternative energy, and the need for localized economies. An environmental" +
 						" activist, bestselling author, and the planet's best green journalist, McKibben is the founder of " +
 						"350.org, the massive grassroots climate change initiative. This event starts at 7:30 and costs 20" +
 						" dollars.", false, "Do you need me to repeat that?", false);
 				break;
-			case "Itzhak Perlman and Rohan De Silva":
+			case "itzhak perlman and rohan de silva":
 				response = newAskResponse("Undeniably the reigning virtuoso of the violin, Itzhak Perlman enjoys superstar" +
 						" status rarely afforded a classical musician. Beloved for his charm and humanity as well as his " +
 						"talent, he is treasured by audiences throughout the world who respond not only to his remarkable " +
 						"artistry but also to his irrepressible joy for making music. It starts at 7:30 and costs 50 " +
 						"dollars.", false, "Do you need me to repeat that?", false);
 				break;
-			case "Denis Matsuev":
+			case "denis matsuev":
 				response = newAskResponse("Winner of the prestigious Tchaikovsky Competition, Denis Matsuev is “a virtuoso " +
 						"in the grandest of Russian pianistic tradition,” and one of the most highly-regarded pianists of his" +
 						" generation. His captivating live performances showcase his unique ability to move seamlessly between" +
@@ -184,16 +186,22 @@ public class GMCConversation extends Conversation {
 				break;
 		}
 
-		session.setAttribute(SESSION_EVENT_STATE, STATE_WAITING_MORE_EVENTS);
+		session.setAttribute(SESSION_EVENT_STATE, STATE_GIVEN_DETAILS);
 		return response;
 
 	}
 
 	private SpeechletResponse handleMoreEventsIntent(IntentRequest intentReq, Session session) {
-		SpeechletResponse response = newAskResponse("The next three events are a comedy show: funny or die jokes for votes, on" +
-				" October 6th; A performance: Philharmonia Baroque Orchestra, on October 15th; and a talk by " +
-				"Adam Savage, on October 17th", false, "You can ask about a specific event or events for other dates.", false);
-		session.setAttribute(SESSION_EVENT_STATE, STATE_WAITING_MORE_EVENTS);
+		if(session.getAttribute(SESSION_EVENT_STATE) != null
+				&& STATE_GIVEN_EVENTS.compareTo((Integer)session.getAttribute(SESSION_EVENT_STATE)) == 0) {
+			SpeechletResponse response = newAskResponse("The next three events are a comedy show: funny or die jokes for votes, on" +
+					" October 6th; A performance: Philharmonia Baroque Orchestra, on October 15th; and a talk by " +
+					"Adam Savage, on October 17th", false, "You can ask about a specific event or events for other dates.", false);
+			session.setAttribute(SESSION_EVENT_STATE, STATE_GIVEN_EVENTS);
+		}
+		else {
+
+		}
 		return response;
 
 	}
@@ -206,7 +214,7 @@ public class GMCConversation extends Conversation {
 	//		**We may want to fork this call to give options for ticketing levels, ask about #of tickets to purchase**
 	private SpeechletResponse handleSpecificEventPurchaseIntent(IntentRequest intentReq, Session session) {
 		SpeechletResponse response = newAskResponse("This isn't implemented yet.", false, "You can ask about a specific event or events for other dates.", false);
-		session.setAttribute(SESSION_EVENT_STATE, STATE_WAITING_MORE_EVENTS);
+		session.setAttribute(SESSION_EVENT_STATE, STATE_MADE_RESERV);
 		return response;
 
 	}
