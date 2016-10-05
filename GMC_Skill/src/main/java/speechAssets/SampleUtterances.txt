@@ -1,3 +1,4 @@
+// Our intents
 GenericUpcomingEventsIntent What events are coming up
 GenericUpcomingEventsIntent To list upcoming events
 GenericUpcomingEventsIntent What's going on
@@ -12,7 +13,6 @@ GenericUpcomingEventsIntent If there's anything to attend
 GenericUpcomingEventsIntent What's there to attend
 GenericUpcomingEventsIntent If there's anything entertaining happening
 GenericUpcomingEventsIntent For a list of upcoming events
-
 
 DateSpecifiedEventsIntent to tell me events on {dateSpecified}
 DateSpecifiedEventsIntent {dateSpecified}
@@ -32,7 +32,29 @@ DateSpecifiedEventsIntent For a list of events {dateSpecified}
 DateSpecifiedEventsIntent For events {dateSpecified}
 DateSpecifiedEventsIntent For a list of events taking place {dateSpecified}
 
-//Common Intents
+StartGMCIntent Can you ask GMC something
+StartGMCIntent Can you ask Green music center something
+StartGMCIntent Can you tell me what you do
+
+SpecificEventDetailsIntent Can you tell me about {specificEvent}
+SpecificEventDetailsIntent Can you tell me more about {specificEvent}
+SpecificEventDetailsIntent What is {specificEvent}
+SpecificEventDetailsIntent What is the {specificEvent}
+SpecificEventDetailsIntent How much does {specificEvent} cost
+SpecificEventDetailsIntent Who is {specificEvent}
+
+SpecificEventPurchaseIntent Can you reserve tickets for {specificEvent}
+SpecificEventPurchaseIntent Can you reserve tickets for {specificEvent} on {dateSpecified}
+SpecificEventPurchaseIntent I need tickets for {specificEvent}
+SpecificEventPurchaseIntent I need tickets for {specificEvent} on {dateSpecified}
+SpecificEventPurchaseIntent Can you buy {specificEvent} tickets for me
+SpecificEventPurchaseIntent Can you buy {specificEvent} tickets for the {dateSpecified} time for me
+
+MoreIntent What events are happening after that
+MoreIntent what else is happening that week
+MoreIntent Can you list some more events
+
+// Common Intents
 AMAZON.NoIntent nope
 AMAZON.NoIntent no way
 AMAZON.NoIntent hell no
@@ -45,3 +67,7 @@ AMAZON.YesIntent yes let's
 AMAZON.YesIntent sure
 AMAZON.YesIntent of course
 AMAZON.YesIntent go ahead
+
+AMAZON.StopIntent I think I'm good
+AMAZON.StopIntent Ok that's enough
+AMAZON.StopIntent Alright thanks for the help

@@ -4,6 +4,9 @@
       "intent": "StartGMCIntent"
     },
     {
+      "intent": "MoreIntent"
+    },
+    {
       "intent": "GenericUpcomingEventsIntent"
     },
     {
@@ -21,6 +24,10 @@
         {
           "name": "specificEvent",
           "type": "EVENT_NAME"
+        },
+        {
+          "name": "dateSpecified",
+          "type": "AMAZON.DATE"
         }
       ]
     },
