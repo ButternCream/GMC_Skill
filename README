@@ -1,11 +1,30 @@
-To compile the Maven project and produce the JAR with dependencies that you will upload to AWS Lambda:
-Execute within terminal in the project folder:
+===GMC Event reservation skill===
+An amazon alexa skill for requesting info and tickets for events taking place at Sonoma
+State's Green Music Center.
 
+
+To build:
+-Maven assembly commmand-
 mvn assembly:assembly -DdescriptorId=jar-with-dependencies package
 
-The build artifacts will be produced in the ./target folder.
+
+TODO for the next presentation:
+-Improve the interaction model:
+	+incorporate the use of states in a way that enhances user expearience
+	+Continue adding to the list of utterances
+	+Add a ton of event names to the EVENT_NAME slot to help alexa recognize them
+	+update the interaction model to fetch data from our collection of event objects
+
+-Create an "event" java class to store event data
+	+This should be able to hold the event name, date, start time, cost, catagory, 
+	 and description
+	+figure out how to populate a collection of event objects from either the 
+	 schoold RSS feed or another adequate database
 
 
-+++NOTE in order to get this project running in an ide use the GMC_Skill as the root directory -Charlie
-+++right now, this compiles and runs on lambda
+Bugs:
+-if you find bugs put them here w/ a small description
 
+Credits:
+Charlie Moore, Kurt Granborg, Ryan Graves, Scott Mitchell, Gaybi Igno, Pavan Asuti,
+Troy Kurpieski, & Jessie McIntosh
