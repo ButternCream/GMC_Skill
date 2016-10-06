@@ -35,10 +35,10 @@ public class Event{
 	//Getters
 	public String getEventName(){return eventName;}
 	public String getDate(){return date;}
-	public String getTime(){ return startTime; }
-	public String getCost(){ return cost; }
-	public String getCategroy(){ return category; }
-	public String getDesc(){ return description; }
+	public String getTime(){ return startTime;}
+	public String getCost(){ return cost;}
+	public String getCategroy(){ return category;}
+	public String getDesc(){ return description;}
 
 	
 	
