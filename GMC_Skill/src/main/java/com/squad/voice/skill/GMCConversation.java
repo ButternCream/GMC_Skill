@@ -101,47 +101,15 @@ public class GMCConversation extends Conversation {
 				"happening at the Green music center, try asking me about upcoming events", false, "You can also specify" +
 				" ask for a list of events occurring on a specific date", false);
 		session.setAttribute(SESSION_EVENT_STATE, STATE_WAITING_FOR_EVENT_REQ);
-
-<<<<<<< HEAD
-		/*Intent intent = intentReq.getIntent();
-		String intentName = (intent != null) ? intent.getName() : null;
-		if (INTENT_YES.equals(intentName)) {
-			response = handleGenericUpcomingIntent(intentReq, session);
-		} else if (INTENT_UPCOMING_GMC.equals(intentName)) {
-			response = handleGenericUpcomingIntent(intentReq, session);
-		} else if (INTENT_DATE_GMC.equals(intentName)) {
-			response = handleDateSpecifiedIntent(intentReq, session);
-		} else if (INTENT_NO.equals(intentName)) {
-			response = newAskResponse("I won't bother you again, bitch");
-		} else {
-			response = newAskResponse("I didn't get that, please try again");
-			//I'm not positive this call will work the way I hope it to, this may be the default
-			response = respondToIntentRequest(intentReq, session);
-		}*/
-		
-		//I think this sets the variable SESSION_KNOCK_STATE to the value of STATE_WAITING_WHO_DER so we know that the state has changed
-		//session.setAttribute(SESSION_KNOCK_STATE, STATE_WAITING_WHO_DER);
-=======
->>>>>>> eea32c3c8655c8f5d525d4bdf63931e4aab8d409
 		return response;
-
-
 	}
 
 	//Pre: Takes a generic request for upcoming events
 	//Post: Lists three most recent events, prompts user to ask about a specific event or ask for more events
 	private SpeechletResponse handleGenericUpcomingIntent(IntentRequest intentReq, Session session) {
-<<<<<<< HEAD
-<<<<<<< HEAD
-		String speechOutput = "The next three events are a Performance: The Magic of the Flute, on October"
-				+ " 8th, 9th and 10th; <break strength=\"strong\" /> A play: Waiting for the Parade, on October 13th and 14th; <break strength=\"strong\" />" + 
-				"and a Performance: Philharmonia Baroque Orchestra, on October 15th";
 		//Changes the state
 		//session.setAttribute(SESSION_EVENT_STATE, STATE_WAITING_MORE_EVENTS);
-		session.setAttribute(SESSION_EVENT_STATE, STATE_WAITING_DETAILS);
-		SpeechletResponse response = newAskResponse(speechOutput, false, "You can ask about a specific event or events for other dates.", false);
 		
-		return response;
 		
 		/*Intent intent = intentReq.getIntent();
 		String intentName = (intent != null) ? intent.getName() : null;
@@ -155,20 +123,11 @@ public class GMCConversation extends Conversation {
 			response = respondToIntentRequest(intentReq, session);
 
 		}*/
-=======
-		SpeechletResponse response = newAskResponse("The next three events are a presentation: Sonoma State university sustainability" +
-				" day, on October 18th; A performance: Itzhak Perlman and Rohan De Selva, on October 20th; and a Performance: " +
-				"Denis Matsuev, on October 22th", false, "You can ask about a specific event or events for other dates.", false);
-		session.setAttribute(SESSION_EVENT_STATE, STATE_WAITING_MORE_EVENTS);
-=======
 		SpeechletResponse response = newAskResponse("The next three events are a comedy show: funny or die jokes for votes, on" +
 				" October 6th; A performance: Philharmonia Baroque Orchestra, on October 15th; and a talk by " +
 				"Adam Savage, on October 17th", false, "You can ask about a specific event or events for other dates.", false);
 		session.setAttribute(SESSION_EVENT_STATE, STATE_GIVEN_EVENTS);
->>>>>>> 0980da09d4184f67b7bef9dab19b89941ba3e7c8
 		return response;
-
->>>>>>> eea32c3c8655c8f5d525d4bdf63931e4aab8d409
 	}
 
 	//Pre: 	Takes a request for events on or around a specified date.
@@ -187,44 +146,6 @@ public class GMCConversation extends Conversation {
 
 	//Pre: Takes a request for details about a specified Event
 	//		**This needs to be changed to accept a specific event as a slot, that slot needs to be defined above**
-<<<<<<< HEAD
-	//Post: Reads a one or two sentence description of the event specified, prompts user to purchase tickets.
-	private SpeechletResponse handleSpecificEventDetailsIntent(Intent intent, Session session) {
-
-		/*if (session.getAttributes().containsKey(STATE_WAITING_DETAILS)){
-			speechOutput = "Magic flute description";
-		} else{
-			speechOutput = "Key missing";
-		}*/
-		
-		 //Will always say this no matter what event you ask about
-		// Need to add checking to see what event they asked about
-		String speechOutput = "The magic of the flute description.";
-		String repromptText = "Would you like to purchase tickets?";
-		
-		
-		//TO IMPLEMENT AFTER THEY SPECIFY AN EVENT
-		
-		/*if (session.getAttributes().containsKey(STATE_WAITING_DETAILS)){
-			if ((Integer) session.getAttribute(SESSION_EVENT_STATE) == STATE_WAITING_DETAILS){
-				speechOutput = "The flute event details go here";
-				repromptText = "Would you like to here the details again?";
-			} else{
-				speechOutput = "The state isn't waiting for details";
-				repromptText = "State is messed up";
-			}
-		} else{
-			speechOutput = "The key is missing";
-			repromptText = "key is missing";
-		}*/
-		
-		
-		
-		//SpeechletResponse response = newAskResponse("working on this implementation.", false, "You can ask about a specific event or events for other dates.", false);
-
-		//session.setAttribute(SESSION_EVENT_STATE, STATE_WAITING_MORE_EVENTS);
-		return newAskResponse("<speak>" + speechOutput + "</speak>", true, repromptText, true);
-=======
 	//Post: Reads a one or two sentace description of the event specified, prompts user to purchase tickets.
 	private SpeechletResponse handleSpecificEventDetailsIntent(IntentRequest intentReq, Session session) {
 		Intent intent = intentReq.getIntent();
@@ -382,7 +303,6 @@ public class GMCConversation extends Conversation {
 			response = newTellResponse("You have to ask for a list of events before I can tell you more.", false);
 		}
 		return response;
->>>>>>> eea32c3c8655c8f5d525d4bdf63931e4aab8d409
 
 	}
 
