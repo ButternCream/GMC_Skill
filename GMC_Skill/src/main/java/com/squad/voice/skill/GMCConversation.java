@@ -101,33 +101,21 @@ public class GMCConversation extends Conversation {
 				"happening at the Green music center, try asking me about upcoming events", false, "You can also specify" +
 				" ask for a list of events occurring on a specific date", false);
 		session.setAttribute(SESSION_EVENT_STATE, STATE_WAITING_FOR_EVENT_REQ);
+
 		return response;
+
+
 	}
 
 	//Pre: Takes a generic request for upcoming events
 	//Post: Lists three most recent events, prompts user to ask about a specific event or ask for more events
 	private SpeechletResponse handleGenericUpcomingIntent(IntentRequest intentReq, Session session) {
-		//Changes the state
-		//session.setAttribute(SESSION_EVENT_STATE, STATE_WAITING_MORE_EVENTS);
-		
-		
-		/*Intent intent = intentReq.getIntent();
-		String intentName = (intent != null) ? intent.getName() : null;
-		if (INTENT_DATE_GMC.equals(intentName)) {
-			response = handleDateSpecifiedIntent(intentReq, session);
-		} else if (We'll need a new intent for asking about specific events here. ie: "Tell me more about [event slot]"false) {
-			response = handleSpecificEventDetailsIntent(intentReq, session);
-		} else {
-			response = newAskResponse("I didn't catch that. If I can help you with anything else, let me know!");
-			//I'm not positive this call will work the way I hope it to, this may be the default
-			response = respondToIntentRequest(intentReq, session);
-
-		}*/
 		SpeechletResponse response = newAskResponse("The next three events are a comedy show: funny or die jokes for votes, on" +
 				" October 6th; A performance: Philharmonia Baroque Orchestra, on October 15th; and a talk by " +
 				"Adam Savage, on October 17th", false, "You can ask about a specific event or events for other dates.", false);
 		session.setAttribute(SESSION_EVENT_STATE, STATE_GIVEN_EVENTS);
 		return response;
+
 	}
 
 	//Pre: 	Takes a request for events on or around a specified date.
