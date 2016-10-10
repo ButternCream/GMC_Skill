@@ -8,6 +8,7 @@ import com.amazon.speech.speechlet.SpeechletResponse;
 import com.amazonaws.services.dynamodbv2.xspec.S;
 import com.squad.voice.model.base.Conversation;
 import java.util.Map;
+import com.squad.voice.skill.Event;
 
 
 public class GMCConversation extends Conversation {
@@ -110,9 +111,13 @@ public class GMCConversation extends Conversation {
 	//Pre: Takes a generic request for upcoming events
 	//Post: Lists three most recent events, prompts user to ask about a specific event or ask for more events
 	private SpeechletResponse handleGenericUpcomingIntent(IntentRequest intentReq, Session session) {
-		SpeechletResponse response = newAskResponse("The next three events are a comedy show: funny or die jokes for votes, on" +
+		Event e = new Event();
+
+		/*SpeechletResponse response = newAskResponse("The next three events are a comedy show: funny or die jokes for votes, on" +
 				" October 6th; A performance: Philharmonia Baroque Orchestra, on October 15th; and a talk by " +
 				"Adam Savage, on October 17th", false, "You can ask about a specific event or events for other dates.", false);
+		*/
+		SpeechletResponse response = newAskResponse("<speak>" + e.getFirst3Events() + "</speak>",true,"Testing",true);
 		session.setAttribute(SESSION_EVENT_STATE, STATE_GIVEN_EVENTS);
 		return response;
 
@@ -307,4 +312,5 @@ public class GMCConversation extends Conversation {
 		return response;
 
 	}
+
 }
