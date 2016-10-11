@@ -5,7 +5,7 @@ import java.net.*;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import org.w3c.dom.Document;
-//import org.xml.sax.XMLReader;
+
 
 public class Event{
 	
@@ -17,6 +17,7 @@ public class Event{
 
 	private String eventName, date, startTime, cost, category, description;
 	private final String url = "http://25livepub.collegenet.com/calendars/Highlighted_Event.rss";
+	private boolean bFirst3Events = false;
 	
 	//Default constructor
 	public Event(){
@@ -67,47 +68,66 @@ public class Event{
         sb.append(source.substring(patIndex));
         return sb.toString();
     }
+	
+	//Builds the XML document from the RSS feed
+	public Document buildXMLDoc(String url){
+		try{
+			DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
+			DocumentBuilder db = dbf.newDocumentBuilder();
+			Document doc = db.parse(new URL(url).openStream());
+			return doc;
+		}catch(Exception e){
+			System.out.println("Error");
+			return null;
+		}
+	}
+	
+	//formats the date string so Alexa can interpret it as a date
+	public String formatDate(String datestr){
+		int start = datestr.indexOf("(");
+		int end = datestr.indexOf(")");
+		String toBeReplaced = datestr.substring(start-1, end+1);
+		return datestr.replace(toBeReplaced, "");
+	}
+	
 	//Gets the first 3 events and their dates
     public String getFirst3Events(){
     	String titles = "";
     	try{
-				//String url = "http://25livepub.collegenet.com/calendars/Highlighted_Event.rss";
-				DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
-				DocumentBuilder db = dbf.newDocumentBuilder();
-				Document doc = db.parse(new URL(url).openStream());
-				
-				//System.out.println("----------Titles-----------");
+    			Document doc = buildXMLDoc(url);
 				for (int i = 2; i < 5; i++){
-					//System.out.println("Title:\n" + doc.getElementsByTagName("title").item(i).getTextContent());
 					String currentDate = doc.getElementsByTagName("category").item(i-2).getTextContent();
-					int start = currentDate.indexOf("(");
-					int end = currentDate.indexOf(")");
-					String toBeReplaced = currentDate.substring(start-1, end+1);
-					currentDate = currentDate.replace(toBeReplaced, "");
+					currentDate = formatDate(currentDate);
 					currentDate = replaceAll(currentDate, "/", "");
 					titles += doc.getElementsByTagName("title").item(i).getTextContent() 
-							+ " on" + "<say-as interpret-as=\"date\">" + currentDate + "</say-as>." + "<break strength=\"strong\"/>";
+							+ " on" + "<say-as interpret-as=\"date\">" 
+							+ currentDate + "</say-as>." 
+							+ "<break strength=\"strong\"/>";
 				}
-				/*System.out.println("----------Descriptions-----------");
-				for (int i = 0; i < doc.getElementsByTagName("description").getLength(); i++){
-					String desc = "\nDescription:\n" + doc.getElementsByTagName("description").item(i).getTextContent().replaceAll("\\<.*?>", "") + "\n";
-					desc = replaceAll(desc, "&quot;", "\"");
-					desc = replaceAll(desc, "&amp;", "&");
-					desc = replaceAll(desc, "&rsquo;", "'");
-					desc = replaceAll(desc, "&nbsp;", " ");
-					desc = replaceAll(desc, "&ndash;", "-");
-					System.out.println(desc);
-				}
-				System.out.println("----------Dates/Category-----------");
-				for (int i = 0; i < doc.getElementsByTagName("category").getLength(); i++){
-					System.out.println(doc.getElementsByTagName("category").item(i).getTextContent());
-				}*/
 			}catch(Exception e){
 				System.out.println("Error");
 			}
+    		bFirst3Events = true;
 			return "The next 3 events are <break strength=\"medium\"/>" + titles;
 	}
 
+    
+	/*
+	System.out.println("----------Descriptions-----------");
+	for (int i = 0; i < doc.getElementsByTagName("description").getLength(); i++){
+		String desc = "\nDescription:\n" + doc.getElementsByTagName("description").item(i).getTextContent().replaceAll("\\<.*?>", "") + "\n";
+		desc = replaceAll(desc, "&quot;", "\"");
+		desc = replaceAll(desc, "&amp;", "&");
+		desc = replaceAll(desc, "&rsquo;", "'");
+		desc = replaceAll(desc, "&nbsp;", " ");
+		desc = replaceAll(desc, "&ndash;", "-");
+		System.out.println(desc);
+	}
+	System.out.println("----------Dates/Category-----------");
+	for (int i = 0; i < doc.getElementsByTagName("category").getLength(); i++){
+		System.out.println(doc.getElementsByTagName("category").item(i).getTextContent());
+	}
+	*/
 	
 }
 	
