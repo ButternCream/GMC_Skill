@@ -5,7 +5,7 @@ import java.net.*;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import org.w3c.dom.Document;
-
+import org.jsoup.Jsoup;
 
 public class Event{
 	
@@ -93,10 +93,13 @@ public class Event{
 	//Gets the first 3 events and their dates
     public String getFirst3Events(){
     	String titles = "";
+    	String description = "Description: ";
     	try{
     			Document doc = buildXMLDoc(url);
 				for (int i = 2; i < 5; i++){
 					String currentDate = doc.getElementsByTagName("category").item(i-2).getTextContent();
+					
+					//description = Jsoup.parse(description).text();
 					currentDate = formatDate(currentDate);
 					currentDate = replaceAll(currentDate, "/", "");
 					titles += doc.getElementsByTagName("title").item(i).getTextContent() 
@@ -104,11 +107,15 @@ public class Event{
 							+ currentDate + "</say-as>." 
 							+ "<break strength=\"strong\"/>";
 				}
+				//Parsed description
+				description += Jsoup.parse(doc.getElementsByTagName("description").item(2).getTextContent()).text();
 			}catch(Exception e){
 				System.out.println("Error");
 			}
     		bFirst3Events = true;
-			return "The next 3 events are <break strength=\"medium\"/>" + titles;
+    		
+			//return "The next 3 events are <break strength=\"medium\"/>" + titles;
+    		return titles;
 	}
 
     
