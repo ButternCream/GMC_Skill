@@ -90,15 +90,36 @@ public class Event{
 		return datestr.replace(toBeReplaced, "");
 	}
 	
+	public String parseDescription(int index){
+		Document doc = buildXMLDoc(url);
+		return Jsoup.parse(doc.getElementsByTagName("description").item(index).getTextContent()).text();
+	}
+	
 	//Gets the first 3 events and their dates
     public String getFirst3Events(){
     	String titles = "";
-    	String description = "Description: ";
+    	String desc = parseDescription(3);
     	try{
     			Document doc = buildXMLDoc(url);
 				for (int i = 2; i < 5; i++){
 					String currentDate = doc.getElementsByTagName("category").item(i-2).getTextContent();
-					
+					int start = desc.indexOf('$');
+					if (start != -1)
+					{
+						int end = start+1;
+						while (Character.isDigit(desc.charAt(end))){
+							end++;
+						}
+						if (desc.charAt(end) == '-'){
+							end++;
+							while (Character.isDigit(desc.charAt(end+1))){
+								end++;
+							}
+						}
+						//System.out.println(desc.substring(start, end+1));
+						desc = desc.substring(start, end+1);
+			
+					}
 					//description = Jsoup.parse(description).text();
 					currentDate = formatDate(currentDate);
 					currentDate = replaceAll(currentDate, "/", "");
@@ -108,14 +129,14 @@ public class Event{
 							+ "<break strength=\"strong\"/>";
 				}
 				//Parsed description
-				description += Jsoup.parse(doc.getElementsByTagName("description").item(2).getTextContent()).text();
+				//description += Jsoup.parse(doc.getElementsByTagName("description").item(2).getTextContent()).text();
 			}catch(Exception e){
 				System.out.println("Error");
 			}
     		bFirst3Events = true;
     		
 			//return "The next 3 events are <break strength=\"medium\"/>" + titles;
-    		return titles;
+    		return desc;
 	}
 
     
