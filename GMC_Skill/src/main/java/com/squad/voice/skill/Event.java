@@ -1,10 +1,10 @@
 package com.squad.voice.skill;
 
-import java.io.*;
 import java.net.*;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import org.w3c.dom.Document;
+import org.w3c.dom.NodeList;
 import org.jsoup.Jsoup;
 
 public class Event{
@@ -16,6 +16,7 @@ public class Event{
 //	}
 
 	private String eventName, date, startTime, cost, category, description;
+	private Event[] events;
 	private final String url = "http://25livepub.collegenet.com/calendars/Highlighted_Event.rss";
 	private boolean bFirst3Events = false;
 	
@@ -46,12 +47,13 @@ public class Event{
 	public void setCategory(String category){this.category = category;}
 	public void setDesc(String desc){description = desc;}
 	//Getters
-	public String getEventName(){return eventName;}
+	public String getTitle(){return eventName;}
 	public String getDate(){return date;}
 	public String getTime(){ return startTime;}
-	public String getCost(){ return cost;}
+	public String getPrice(){ return cost;}
 	public String getCategroy(){ return category;}
 	public String getDesc(){ return description;}
+	public int numEvents(){ return events.length; }
 
 	public static String replaceAll(String source, String pattern, String replacement) {
         if (source == null) {
@@ -90,55 +92,78 @@ public class Event{
 		return datestr.replace(toBeReplaced, "");
 	}
 	
-	public String parseDescription(int index){
-		Document doc = buildXMLDoc(url);
-		return Jsoup.parse(doc.getElementsByTagName("description").item(index).getTextContent()).text();
+	public String cleanDescription(String desc){
+		//Document doc = buildXMLDoc(url);
+		//return Jsoup.parse(doc.getElementsByTagName("description").item(index).getTextContent()).text();
+		return Jsoup.parse(desc).text();
 	}
 	
 	//Gets the first 3 events and their dates
-    public String getFirst3Events(){
-    	String titles = "";
-    	String desc = parseDescription(3);
-    	try{
-    			Document doc = buildXMLDoc(url);
-				for (int i = 2; i < 5; i++){
-					String currentDate = doc.getElementsByTagName("category").item(i-2).getTextContent();
-					int start = desc.indexOf('$');
-					if (start != -1)
-					{
-						int end = start+1;
-						while (Character.isDigit(desc.charAt(end))){
-							end++;
-						}
-						if (desc.charAt(end) == '-'){
-							end++;
-							while (Character.isDigit(desc.charAt(end+1))){
-								end++;
-							}
-						}
-						//System.out.println(desc.substring(start, end+1));
-						desc = desc.substring(start, end+1);
-			
-					}
-					//description = Jsoup.parse(description).text();
-					currentDate = formatDate(currentDate);
-					currentDate = replaceAll(currentDate, "/", "");
-					titles += doc.getElementsByTagName("title").item(i).getTextContent() 
-							+ " on" + "<say-as interpret-as=\"date\">" 
-							+ currentDate + "</say-as>." 
-							+ "<break strength=\"strong\"/>";
-				}
-				//Parsed description
-				//description += Jsoup.parse(doc.getElementsByTagName("description").item(2).getTextContent()).text();
-			}catch(Exception e){
-				System.out.println("Error");
-			}
-    		bFirst3Events = true;
-    		
-			//return "The next 3 events are <break strength=\"medium\"/>" + titles;
-    		return desc;
-	}
+//    public String getFirst3Events(){
+//    	String titles = "";
+//    	//String desc = cleanDescription(3);
+//    	try{
+//    			Document doc = buildXMLDoc(url);
+//				for (int i = 2; i < 5; i++){
+//					String currentDate = doc.getElementsByTagName("category").item(i-2).getTextContent();
+//					int start = desc.indexOf('$');
+//					if (start != -1)
+//					{
+//						int end = start+1;
+//						while (Character.isDigit(desc.charAt(end))){
+//							end++;
+//						}
+//						if (desc.charAt(end) == '-'){
+//							end++;
+//							while (Character.isDigit(desc.charAt(end+1))){
+//								end++;
+//							}
+//						}
+//						//System.out.println(desc.substring(start, end+1));
+//						
+//						desc = desc.substring(start, end+1);
+//						desc = replaceAll(desc, "-", " to ");
+//			
+//					}
+//					//description = Jsoup.parse(description).text();
+//					currentDate = formatDate(currentDate);
+//					currentDate = replaceAll(currentDate, "/", "");
+//					titles += doc.getElementsByTagName("title").item(i).getTextContent() 
+//							+ " on" + "<say-as interpret-as=\"date\">" 
+//							+ currentDate + "</say-as>." 
+//							+ "<break strength=\"strong\"/>";
+//				}
+//				//Parsed description
+//				//description += Jsoup.parse(doc.getElementsByTagName("description").item(2).getTextContent()).text();
+//			}catch(Exception e){
+//				System.out.println("Error");
+//			}
+//    		bFirst3Events = true;
+//    		
+//			//return "The next 3 events are <break strength=\"medium\"/>" + titles;
+//    		return desc;
+//	}
 
+    public Event[] parseRSSFeed(){
+    	
+	   	Document doc = buildXMLDoc(url);
+	   	int size = doc.getElementsByTagName("item").getLength();
+	    //NodeList eventList = doc.getElementsByTagName("item");
+	    events = new Event[size];
+	    String eventDesc, eventTitle, eventPrice, eventDate;
+		    for (int i = 0 ; i < size; i++){	
+		    	events[i] = new Event();
+		    	eventTitle = doc.getElementsByTagName("item").item(i).getChildNodes().item(1).getTextContent();
+		    	events[i].eventName = eventTitle; 
+		   		//eventDesc = cleanDescription(doc.getElementsByTagName("item").item(i).getChildNodes().item(1).getTextContent());
+		   		//events[i].description = eventDesc;
+		   		//eventDate = doc.getElementsByTagName("item").item(i).getChildNodes().item(4).getTextContent();
+		   		//events[i].date = formatDate(eventDate);
+		    }
+    	
+    	return (events);
+    }
+    
     
 	/*
 	System.out.println("----------Descriptions-----------");
