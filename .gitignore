@@ -11,6 +11,9 @@ local.properties
 .loadpath
 .recommenders
 
+#Mac
+._*
+
 # Eclipse Core
 .project
 
