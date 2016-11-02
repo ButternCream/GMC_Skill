@@ -1,0 +1,41 @@
+2016-09-21 13:42:24,414 [Worker-19] INFO  o.e.m.c.i.l.LifecycleMappingFactory - Using org.eclipse.m2e.jdt.JarLifecycleMapping lifecycle mapping for MavenProject: com.cs370.alexa:GMCApp:0.0.1-SNAPSHOT @ C:\Users\scooter\Desktop\Github\AlexaApp\GMCApp\pom.xml.
+2016-09-21 13:42:24,424 [Worker-18] INFO  o.e.m.c.i.l.LifecycleMappingFactory - Using org.eclipse.m2e.jdt.JarLifecycleMapping lifecycle mapping for MavenProject: com.cs370.alexa:GMCApp:0.0.1-SNAPSHOT @ C:\Users\scooter\Desktop\Github\AlexaApp\GMCApp\pom.xml.
+2016-09-21 13:42:26,352 [Worker-18] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2016-09-21 13:42:26,352 [Worker-18] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory C:\Users\scooter\Desktop\Github\AlexaApp\GMCApp\src\main\resources
+2016-09-21 13:42:26,355 [Worker-18] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2016-09-21 13:42:26,355 [Worker-18] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory C:\Users\scooter\Desktop\Github\AlexaApp\GMCApp\src\test\resources
+2016-09-21 13:42:27,340 [Worker-19] INFO  o.e.m.c.i.l.LifecycleMappingFactory - Using org.eclipse.m2e.jdt.JarLifecycleMapping lifecycle mapping for MavenProject: com.cs370.alexa:GMCApp:0.0.1-SNAPSHOT @ C:\Users\scooter\Desktop\Github\AlexaApp\GMCApp\pom.xml.
+2016-09-21 13:42:27,899 [Worker-23] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2016-09-21 13:42:27,900 [Worker-23] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory C:\Users\scooter\Desktop\Github\AlexaApp\GMCApp\src\main\resources
+2016-09-21 13:42:27,902 [Worker-23] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2016-09-21 13:42:27,902 [Worker-23] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory C:\Users\scooter\Desktop\Github\AlexaApp\GMCApp\src\test\resources
+2016-09-21 13:42:36,351 [Worker-21] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2016-09-21 13:42:36,352 [Worker-21] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory C:\Users\scooter\Desktop\Github\AlexaApp\GMCApp\src\main\resources
+2016-09-21 13:42:36,353 [Worker-21] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2016-09-21 13:42:36,354 [Worker-21] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory C:\Users\scooter\Desktop\Github\AlexaApp\GMCApp\src\test\resources
+2016-09-21 13:44:09,465 [Worker-19] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2016-09-21 13:44:09,470 [Worker-19] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory C:\Users\scooter\Desktop\Github\AlexaApp\GMCApp\src\main\resources
+2016-09-21 13:44:09,472 [Worker-19] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2016-09-21 13:44:09,472 [Worker-19] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory C:\Users\scooter\Desktop\Github\AlexaApp\GMCApp\src\test\resources
+2016-09-21 13:45:02,744 [Worker-0] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2016-09-21 13:45:02,750 [Worker-0] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory C:\Users\scooter\Desktop\Github\AlexaApp\GMCApp\src\main\resources
+2016-09-21 13:45:02,755 [Worker-0] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2016-09-21 13:45:02,758 [Worker-0] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory C:\Users\scooter\Desktop\Github\AlexaApp\GMCApp\src\test\resources
+2016-09-21 13:46:18,160 [Worker-5] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2016-09-21 13:46:18,164 [Worker-5] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory C:\Users\scooter\Desktop\Github\AlexaApp\GMCApp\src\main\resources
+2016-09-21 13:46:18,168 [Worker-5] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2016-09-21 13:46:18,172 [Worker-5] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory C:\Users\scooter\Desktop\Github\AlexaApp\GMCApp\src\test\resources
+2016-09-21 13:47:55,459 [Worker-5] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2016-09-21 13:47:55,462 [Worker-5] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory C:\Users\scooter\Desktop\Github\AlexaApp\GMCApp\src\main\resources
+2016-09-21 13:47:55,466 [Worker-5] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2016-09-21 13:47:55,469 [Worker-5] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory C:\Users\scooter\Desktop\Github\AlexaApp\GMCApp\src\test\resources
+2016-10-24 18:11:14,036 [Worker-1] INFO  c.g.t.t.d.PublishedGradleVersions - Gradle version information cache is not available. Remote download required.
+2016-10-24 18:12:01,231 [Worker-3] INFO  o.e.m.c.i.l.LifecycleMappingFactory - Using org.eclipse.m2e.jdt.JarLifecycleMapping lifecycle mapping for MavenProject: GMC_Skill:GMC_Skill:1.0 @ C:\Users\scooter\Desktop\Github\Squad-\GMC_Skill\pom.xml.
+2016-10-24 18:12:02,997 [Worker-3] INFO  o.e.m.j.i.AbstractJavaProjectConfigurator - Adding source folder /GMC_Skill/src/main/java
+2016-10-24 18:12:02,997 [Worker-3] INFO  o.e.m.j.i.AbstractJavaProjectConfigurator - Adding source folder /GMC_Skill/src/test/java
+2016-10-24 18:12:03,137 [Worker-3] INFO  o.e.m.c.i.p.ProjectConfigurationManager - Imported and configured 1 project(s) in 3 sec
+2016-10-24 18:12:06,075 [Worker-5] WARN  o.e.m.c.i.embedder.EclipseLogger - Using platform encoding (Cp1252 actually) to copy filtered resources, i.e. build is platform dependent!
+2016-10-24 18:12:06,075 [Worker-5] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory C:\Users\scooter\Desktop\Github\Squad-\GMC_Skill\src\main\resources
+2016-10-24 18:12:06,091 [Worker-5] WARN  o.e.m.c.i.embedder.EclipseLogger - Using platform encoding (Cp1252 actually) to copy filtered resources, i.e. build is platform dependent!
+2016-10-24 18:12:06,106 [Worker-5] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory C:\Users\scooter\Desktop\Github\Squad-\GMC_Skill\src\test\resources
+2016-10-25 09:21:59,116 [Worker-2] INFO  c.g.t.t.d.PublishedGradleVersions - Gradle version information cache is up-to-date. Trying to read.

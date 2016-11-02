@@ -42,72 +42,13 @@ public class Event{
 	}
 	
 	//Setters
-	public void setEventName(int i){
-		Document doc = buildXMLDoc(url);
-		String eventTitle = doc.getElementsByTagName("item").item(i).getChildNodes().item(1).getTextContent();
-	    eventTitle = eventTitle.replace("&", "and");
-		eventName = eventTitle;
-
-	}
-
-	public void setDate(int i){
-		Document doc = buildXMLDoc(url);
-		String eventDate = doc.getElementsByTagName("item").item(i).getChildNodes().item(9).getTextContent();
-		eventDate = formatDate(eventDate);
-		this.date = date;
-	}
-
-	public void resetDate(String eventDate){this.date = eventDate;}
-
-	public void setTime(int i){
-		Document doc = buildXMLDoc(url);
-   		String eventTime = doc.getElementsByTagName("item").item(i).getChildNodes().item(3).getTextContent();
-  	 	int temp = eventTime.indexOf("<br/>");
-		int temp2 = eventTime.indexOf("<br/>", temp + 1);
-		eventTime = eventTime.substring(temp, temp2);
-   		startTime = Jsoup.parse(eventTime).text();;
-	}
-
-	public void resetTime(String time){this.startTime = time;}
-
-	public void setCost(int i){
-		Document doc = buildXMLDoc(url);
-		String eventPrice;
-		if(this.getDesc().contains("$")){
-	   		int temp = this.getDesc().indexOf("$");
-	   		eventPrice = this.getDesc().substring(temp, temp + 3);
-	   		if(eventPrice.contains("-")){
-	   			eventPrice = eventPrice.replace("-", "");
-	   		}
-	   	}else{
-	   		eventPrice = " not provided: ";
-	   	}
-		this.cost = eventPrice;
-	}
-
-	public void setDesc(int i){
-		Document doc = buildXMLDoc(url);
-		String eventDesc = Jsoup.parse(doc.getElementsByTagName("item").item(i).getChildNodes().item(3).getTextContent()).text();
-   		int temp = eventDesc.indexOf("pm") + 2;
-   		int temp2; 
-   		if (eventDesc.contains("General Admission"))
-   		temp2 = eventDesc.indexOf("General Admission"); 
-   		else 
-   			temp2 = eventDesc.indexOf("Web");
-   		eventDesc = eventDesc.substring(temp, temp2);
-   		eventDesc = eventDesc.replace("&", "and");
-		description = eventDesc;
-	}
-	public void setWebsite(int i){
-		Document doc = buildXMLDoc(url);
-		String eventSite = doc.getElementsByTagName("item").item(i).getChildNodes().item(3).getTextContent();
-   		int temp = eventSite.indexOf("Web");
-   		eventSite = eventSite.substring(temp,eventSite.indexOf("target" , temp));
-   		eventSite = eventSite.replace("</b>:&nbsp;<a href=", ": ");
-   		eventSite = eventSite.replace("\\", "");
-   		eventSite = eventSite.replace("\"", "");
-		website = "";
-	}
+	public void setEventName(String name){eventName = name;}
+	public void setDate(String date){this.date = date;}
+	public void setTime(String time){startTime = time;}
+	public void setCost(String cost){this.cost = cost;}
+	public void setCategory(String category){this.category = category;}
+	public void setDesc(String desc){description = desc;}
+	public void setWebsite(String site){website = site;}
 	//Getters
 	public String getTitle(){return eventName;}
 	public String getDate(){return date;}
@@ -176,26 +117,56 @@ public class Event{
 	    String eventDesc, eventTitle, eventPrice, eventDate, eventTime, eventSite;
 		    for (int i = 0 ; i < size - mod; i++){	
 		    	events[i] = new Event();
-		    	events[i].setEventName(i+mod);
-		    	events[i].setDesc(i+mod);
-		    	events[i].setTime(i+mod);
-		    	events[i].setDate(i+mod);
-		    	events[i].setWebsite(i+mod);
-		    	events[i].setCost(i+mod);
+		    	eventTitle = doc.getElementsByTagName("item").item(i+mod).getChildNodes().item(1).getTextContent();
+		    	eventTitle = eventTitle.replace("&", "and");
+		    	events[i].eventName = eventTitle; 
+		    	eventDate = doc.getElementsByTagName("item").item(i+mod).getChildNodes().item(9).getTextContent();
+		   		eventDate = formatDate(eventDate);
+		   		events[i].date = eventDate;
+		   		eventDesc = Jsoup.parse(doc.getElementsByTagName("item").item(i+mod).getChildNodes().item(3).getTextContent()).text();
+		   		eventSite = doc.getElementsByTagName("item").item(i+mod).getChildNodes().item(3).getTextContent();
+		   		int temp5 = eventSite.indexOf("Web");
+		   		eventSite = eventSite.substring(temp5,eventSite.indexOf("target" , temp5));
+		   		eventSite = eventSite.replace("</b>:&nbsp;<a href=", ": ");
+		   		eventSite = eventSite.replace("\\", "");
+		   		eventSite = eventSite.replace("\"", "");
+		   		eventTime = doc.getElementsByTagName("item").item(i+mod).getChildNodes().item(3).getTextContent();
+		  	 	int temp3 = eventTime.indexOf("<br/>");
+				int temp4 = eventTime.indexOf("<br/>", temp3+1);
+				eventTime = eventTime.substring(temp3, temp4);
+		   		events[i].startTime = Jsoup.parse(eventTime).text();
+		   		
+		   		int temp = eventDesc.indexOf("pm") + 2;
+		   		int temp2 = eventDesc.indexOf("Web Site");
+		   		eventDesc = eventDesc.substring(temp, temp2);
+		   		eventDesc = eventDesc.replace("&", "and");
+		   		if(eventDesc.contains("$")){
+			   		temp = eventDesc.indexOf("$");
+			   		temp2 = temp + 3; 
+			   		eventPrice = eventDesc.substring(temp, temp2);
+			   		if(eventPrice.contains("-")){
+			   			eventPrice = eventPrice.replace("-", "");
+			   		}
+			   		events[i].cost = eventPrice;
+			   	}else{
+			   		events[i].cost = " not provided: ";
+			   	}
+
 			   	if(i > 0){
-				   	if(events[i].getTitle().equals(events[i-1].getTitle())){
-				   		if(!(events[i-1].getDate().contains(events[i].getDate()))){
-				   			events[i-1].resetDate(events[i-1].getDate() + ", " + events[i].getDate());
-				   			eventTime = events[i-1].getTime() + ", " + events[i].getTime();
+				   	if(eventTitle.equals(events[i-1].getTitle())){
+				   		if(!(events[i-1].getDate().contains(eventDate))){
+				   			events[i-1].setDate(events[i-1].getDate() + ", " + eventDate);
+				   			events[i-1].setTime(events[i-1].getTime() + ", " + eventTime);
+				   			eventTime = events[i-1].getTime();
 				   			eventTime = (eventTime.replace("2016, ", ""));
 				   			eventTime = (eventTime.replace("pm,", "pm;"));
-				   			eventTime = Jsoup.parse(eventTime).text();
-				   			events[i-1].resetTime(eventTime);
+				   			events[i-1].setTime(Jsoup.parse(eventTime).text());
 				   		}
 				   		i--;
 				   		mod += 1;
 				   	}
 			  	 }
+		   		events[i].description = eventDesc;
 		    	events[0].size = i + 1;
 		    }
     	
