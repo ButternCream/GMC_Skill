@@ -2,6 +2,7 @@ package com.squad.voice.skill;
 
 import com.amazon.speech.slu.Intent;
 import com.amazon.speech.slu.Slot;
+import com.amazon.speech.ui.*;
 import com.amazon.speech.speechlet.IntentRequest;
 import com.amazon.speech.speechlet.Session;
 import com.amazon.speech.speechlet.SpeechletResponse;
@@ -160,9 +161,13 @@ public class GMCConversation extends Conversation {
 	//Pre: Takes in generic call to GMC skill
 	//Post: Prompts user to ask about upcoming events
 	private SpeechletResponse handleGMCIntentStart(IntentRequest intentReq, Session session) {
-		SpeechletResponse response = newAskResponse("Hello, I am GMC event helper, I can provide information about events " +
-				"happening at the Green music center, try asking me about upcoming events", false, "You can also" +
-				" ask for events occurring on a specific date", false);
+		SimpleCard card = new SimpleCard();
+		card.setTitle("Green Music Center");
+		String speechOutput = "Hello, I am GMC event helper, I can provide information about events " +
+				"happening at the Green music center, try asking me about upcoming events";
+		card.setContent(speechOutput);
+		SpeechletResponse response = newAskResponse(speechOutput, false, "You can also ask for events occurring on a specific date", false);
+		response.setCard(card);
 		session.setAttribute(SESSION_EVENT_STATE, STATE_WAITING_FOR_EVENT_REQ);
 
 		return response;
@@ -175,7 +180,7 @@ public class GMCConversation extends Conversation {
 	private SpeechletResponse handleGenericUpcomingIntent(IntentRequest intentReq, Session session) {
 		
 		SpeechletResponse response = newAskResponse("The next three events are: " + events[lastRead].getTitle() + 
-				": " + events[lastRead += 1].getTitle() + ": and " + events[lastRead += 1].getTitle() + "; You can ask about a specific event, or ask to hear about more events. " ,false, "Try asking for more events.",false);
+				": " + events[lastRead += 1].getTitle() + ": and " + events[lastRead += 1].getTitle() + "; Would you like to hear about a specific event, or would you like to hear about more events? " ,false, "Try asking for more events.",false);
 		lastRead++;
 		session.setAttribute(SESSION_EVENT_STATE, STATE_GIVEN_EVENTS);
 		return response;
@@ -198,11 +203,15 @@ public class GMCConversation extends Conversation {
 		//int alexaDate = Integer.parseInt(scrubbedAlexaDate);
 		//int prev = 0;
 		//int next = 0;
+		
+		//Updated so it lists all the events on a date if there is more than 1
+		String events_str = "";
+		int num_events = 0;
 		for(int i = 0; i < events[0].size(); i++){
 				if((events[i].getDate()).contains(date) ){
 					eventOnDate = true;
-					eventDateNum = i;
-					break; 
+					//eventDateNum = i;
+					events_str += events[i].getTitle() + ", ";
 				}
 				//I'd like to do something like this, but the events[i].date would need to be in an array.
 				/*String scrubbedEventDate = events[i].getDate().replace("-", "");
@@ -217,16 +226,26 @@ public class GMCConversation extends Conversation {
 				*/
 
 		}
+		//Get rid of the last comma
+		StringBuilder b = new StringBuilder(events_str);
+		b.replace(events_str.lastIndexOf(","), events_str.lastIndexOf(",") + 1, "");
+		events_str = b.toString();
+		
+		//Create a card to send events on that date to their phone
+		SimpleCard card = new SimpleCard();
+		card.setTitle("Events on " + date);
+		card.setContent(events_str);
+		
 		int temp = eventDateNum + 1;
 		if(eventOnDate){
-			response = newAskResponse("There is an event on that date! " + events[eventDateNum].getTitle(), false, "You can ask to reseve tickets for this event, or for more details", false);
+			response = newAskResponse("There is an event on that date! " + events_str, false, "You can ask to reseve tickets for this event, or for more details", false);
 		}
 		else{
-			response = newAskResponse("Sorry, there are no events on that date.", false, "", false);
+			response = newAskResponse("Sorry, there are no events happening on that date.", false, "", false);
 		}
 
 		session.setAttribute(SESSION_EVENT_STATE, STATE_GIVEN_EVENTS);
-
+		response.setCard(card);
 		return response;
 
 	}
@@ -253,12 +272,20 @@ public class GMCConversation extends Conversation {
 					break; 
 				}
 		}
+		//Card to give overview of event
+		SimpleCard card = new SimpleCard();
+		card.setTitle(events[eventMatchNum].getTitle());
+		String content = "Date(s): " + events[eventMatchNum].getTime();
+		content += "\nCost: " + events[eventMatchNum].getPrice();
+		card.setContent(content);
+		
 		if(eventMatch){
 			response = newAskResponse(events[eventMatchNum].getDesc(), false, "You can ask for the time or date of this event, ask to buy tickets, or ask for more events.", false);
 			session.setAttribute(SESSION_EVENT_STATE, STATE_GIVEN_DETAILS);
 		}else{
 			response = newAskResponse("Sorry, I didn't get that.", false, "", false);
 		}
+		response.setCard(card);
 		return response;
 
 
@@ -328,12 +355,18 @@ private SpeechletResponse handleWhatDateIntent(IntentRequest intentReq, Session 
 					break; 
 				}
 		}
+		//Create card to send date & time
+		SimpleCard card = new SimpleCard();
+		card.setTitle(events[eventMatchNum].getTitle());
+		card.setContent("The event is on: "+ events[eventMatchNum].getTime());
+		
 		if(eventMatch){
 			response = newAskResponse(events[eventMatchNum].getTitle() + " is on: " + events[eventMatchNum].getTime(), false, "You can ask to buy tickets if you would like.", false);
 			session.setAttribute(SESSION_EVENT_STATE, STATE_GIVEN_DETAILS);
 		}else{
 			response = newAskResponse("Sorry, I didn't get that.", false, "Please rephrase your question.", false);
 		}
+		response.setCard(card);
 		return response;
 
 
@@ -358,12 +391,18 @@ private SpeechletResponse handleWhatDateIntent(IntentRequest intentReq, Session 
 					break; 
 				}
 		}
+		//Create card to send date & time
+		SimpleCard card = new SimpleCard();
+		card.setTitle(events[eventMatchNum].getTitle());
+		card.setContent("The event is on: "+ events[eventMatchNum].getTime());
+		
 		if(eventMatch){
 			response = newAskResponse(events[eventMatchNum].getTitle() + " is on: " + events[eventMatchNum].getTime(), false, "You can ask to buy tickets if you would like.", false);
 			session.setAttribute(SESSION_EVENT_STATE, STATE_GIVEN_DETAILS);
 		}else{
 			response = newAskResponse("Sorry, I didn't get that.", false, "Please rephrase your question", false);
 		}
+		response.setCard(card);
 		return response;
 
 
