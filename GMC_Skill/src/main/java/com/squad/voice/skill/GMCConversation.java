@@ -178,9 +178,24 @@ public class GMCConversation extends Conversation {
 	//Pre: Takes a generic request for upcoming events
 	//Post: Lists three most recent events, prompts user to ask about a specific event or ask for more events
 	private SpeechletResponse handleGenericUpcomingIntent(IntentRequest intentReq, Session session) {
-		
-		SpeechletResponse response = newAskResponse("The next three events are: " + events[lastRead].getTitle() + 
-				": " + events[lastRead += 1].getTitle() + ": and " + events[lastRead += 1].getTitle() + "; Would you like to hear about a specific event, or would you like to hear about more events? " ,false, "Try asking for more events.",false);
+		SpeechletResponse response;
+		if (lastRead >= events[0].size()){
+			response = newAskResponse("I'm sorry, there are no more events listed.", false, "You can also ask about a specific event.", false);
+			lastRead++;
+			return response;
+		}
+		else if (lastRead >= events[0].size()-1){
+			response = newAskResponse("The next event is: " + events[lastRead].getTitle(), false, "You can also ask about a specific event.", false);
+			lastRead++;
+			return response;
+		}
+		else if (lastRead >= events[0].size()-2){
+			response = newAskResponse("The next two events are: " + events[lastRead].getTitle() + " and " + events[++lastRead].getTitle(), false,"You can also ask about a specific event.",false);
+			lastRead++;
+			return response;
+		}
+		response = newAskResponse("The next three events are: " + events[lastRead].getTitle() + 
+				": " + events[lastRead += 1].getTitle() + ": and " + events[lastRead += 1].getTitle() + "; Would you like to hear about a specific event, or would you like to hear about more events?",false, "Try asking for more events.",false);
 		lastRead++;
 		session.setAttribute(SESSION_EVENT_STATE, STATE_GIVEN_EVENTS);
 		return response;

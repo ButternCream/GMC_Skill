@@ -29,7 +29,7 @@ public class Event{
 		category = "";
 		description = "";
 		website = "";
-		int size = 0;
+		size = 0;
 	}
 	//Constructor
 	public Event(String eventName, String date, String startTime, String cost, String categ, String desc){
@@ -124,12 +124,6 @@ public class Event{
 		   		eventDate = formatDate(eventDate);
 		   		events[i].date = eventDate;
 		   		eventDesc = Jsoup.parse(doc.getElementsByTagName("item").item(i+mod).getChildNodes().item(3).getTextContent()).text();
-		   		eventSite = doc.getElementsByTagName("item").item(i+mod).getChildNodes().item(3).getTextContent();
-		   		int temp5 = eventSite.indexOf("Web");
-		   		eventSite = eventSite.substring(temp5,eventSite.indexOf("target" , temp5));
-		   		eventSite = eventSite.replace("</b>:&nbsp;<a href=", ": ");
-		   		eventSite = eventSite.replace("\\", "");
-		   		eventSite = eventSite.replace("\"", "");
 		   		eventTime = doc.getElementsByTagName("item").item(i+mod).getChildNodes().item(3).getTextContent();
 		  	 	int temp3 = eventTime.indexOf("<br/>");
 				int temp4 = eventTime.indexOf("<br/>", temp3+1);
@@ -137,9 +131,21 @@ public class Event{
 		   		events[i].startTime = Jsoup.parse(eventTime).text();
 		   		
 		   		int temp = eventDesc.indexOf("pm") + 2;
-		   		int temp2 = eventDesc.indexOf("Web Site");
-		   		eventDesc = eventDesc.substring(temp, temp2);
-		   		eventDesc = eventDesc.replace("&", "and");
+		   		int temp2 = eventDesc.indexOf("General Admission");
+		   		if (temp > -1 && temp2 > -1)
+		   		{
+		   			eventDesc = eventDesc.substring(temp, temp2);
+			   		eventDesc = eventDesc.replace("&", "and");
+		   		}
+		   		else if (eventDesc.contains("Agenda")){
+			   		temp2 = eventDesc.indexOf("Agenda");
+			   		eventDesc = eventDesc.substring(temp, temp2);
+			   		eventDesc = eventDesc.replace("&", "and");
+		   		}
+		   		else
+		   		{
+		   			eventDesc = "Description could not be parsed";
+		   		}
 		   		if(eventDesc.contains("$")){
 			   		temp = eventDesc.indexOf("$");
 			   		temp2 = temp + 3; 
