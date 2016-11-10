@@ -9,21 +9,10 @@ mvn assembly:assembly -DdescriptorId=jar-with-dependencies package
 
 
 TODO for the next presentation:
--Improve the interaction model:
-	+incorporate the use of states in a way that enhances user expearience
-	+Continue adding to the list of utterances
-	+Add a ton of event names to the EVENT_NAME slot to help alexa recognize them
-	+update the interaction model to fetch data from our collection of event objects
-
--Create an "event" java class to store event data
-	+This should be able to hold the event name, date, start time, cost, catagory, 
-	 and description
-	+figure out how to populate a collection of event objects from either the 
-	 schoold RSS feed or another adequate database
-
+	-Make all final changes before Jeffs last visit
 
 Bugs:
--if you find bugs put them here w/ a small description
+	-Cost handlers always return cost not provided
 
 Credits:
 Charlie Moore, Kurt Granborg, Ryan Graves, Scott Mitchell, Gaybi Igno, Pavan Asuti,
