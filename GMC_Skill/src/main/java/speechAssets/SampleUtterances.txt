@@ -1,73 +1,775 @@
-// Our intents
-GenericUpcomingEventsIntent What events are coming up
+GenericUpcomingEventsIntent And then what
+GenericUpcomingEventsIntent Anything after that
+GenericUpcomingEventsIntent After that
+GenericUpcomingEventsIntent Are there more
+GenericUpcomingEventsIntent Are there any more
+GenericUpcomingEventsIntent Are there any more scheduled
+GenericUpcomingEventsIntent Are there any more events
+GenericUpcomingEventsIntent Are there any more events soon
+GenericUpcomingEventsIntent Are there any more events scheduled
+GenericUpcomingEventsIntent Are there any more events happening
+GenericUpcomingEventsIntent Are there any more events coming up
+GenericUpcomingEventsIntent Are there any more events after that
+GenericUpcomingEventsIntent Are there any more events after
+GenericUpcomingEventsIntent Are there any more performances
+GenericUpcomingEventsIntent Are there any more performances soon
+GenericUpcomingEventsIntent Are there any more performances scheduled
+GenericUpcomingEventsIntent Are there any more performances happening
+GenericUpcomingEventsIntent Are there any more performances coming up
+GenericUpcomingEventsIntent Are there any more performances after that
+GenericUpcomingEventsIntent Are there any more performances after
+GenericUpcomingEventsIntent Are there any more things
+GenericUpcomingEventsIntent Are there any more things soon
+GenericUpcomingEventsIntent Are there any more things scheduled
+GenericUpcomingEventsIntent Are there any more things happening
+GenericUpcomingEventsIntent Are there any more things coming up
+GenericUpcomingEventsIntent Are there any more things after that
+GenericUpcomingEventsIntent Are there any more things after
+GenericUpcomingEventsIntent Are there more scheduled
+GenericUpcomingEventsIntent Are there more events
+GenericUpcomingEventsIntent Are there more events soon
+GenericUpcomingEventsIntent Are there more events scheduled
+GenericUpcomingEventsIntent Are there more events happening
+GenericUpcomingEventsIntent Are there more events coming up
+GenericUpcomingEventsIntent Are there more events after that
+GenericUpcomingEventsIntent Are there more events after
+GenericUpcomingEventsIntent Are there more performances
+GenericUpcomingEventsIntent Are there more performances soon
+GenericUpcomingEventsIntent Are there more performances scheduled
+GenericUpcomingEventsIntent Are there more performances happening
+GenericUpcomingEventsIntent Are there more performances coming up
+GenericUpcomingEventsIntent Are there more performances after that
+GenericUpcomingEventsIntent Are there more performances after
+GenericUpcomingEventsIntent Are there more things
+GenericUpcomingEventsIntent Are there more things soon
+GenericUpcomingEventsIntent Are there more things scheduled
+GenericUpcomingEventsIntent Are there more things happening
+GenericUpcomingEventsIntent Are there more things coming up
+GenericUpcomingEventsIntent Are there more things after that
+GenericUpcomingEventsIntent Are there more things after
+GenericUpcomingEventsIntent Are there events coming up
+GenericUpcomingEventsIntent Are there performances coming up
+GenericUpcomingEventsIntent Are there performances soon
+GenericUpcomingEventsIntent Are there events soon
+GenericUpcomingEventsIntent Are there performances happening soon
+GenericUpcomingEventsIntent Are there events happening soon
+GenericUpcomingEventsIntent Can you tell me about upcoming events
+GenericUpcomingEventsIntent Can you list some more events
+GenericUpcomingEventsIntent Can you tell me the next events
+GenericUpcomingEventsIntent Can I hear more events
+GenericUpcomingEventsIntent Can you tell me about upcoming performances
+GenericUpcomingEventsIntent Can you list some more performances
+GenericUpcomingEventsIntent Can you tell me the next performances
+GenericUpcomingEventsIntent Can I hear more performances
+GenericUpcomingEventsIntent Can you tell me about upcoming things
+GenericUpcomingEventsIntent Can you list some more things
+GenericUpcomingEventsIntent Can you tell me the next one
+GenericUpcomingEventsIntent Can I hear more things
+GenericUpcomingEventsIntent Can you list some more
+GenericUpcomingEventsIntent Can I hear more
+GenericUpcomingEventsIntent Events please
+GenericUpcomingEventsIntent Find me more
+GenericUpcomingEventsIntent Find me more events
+GenericUpcomingEventsIntent Find me more performances
+GenericUpcomingEventsIntent Find me more options
+GenericUpcomingEventsIntent Find me upcoming events
+GenericUpcomingEventsIntent Find me the next events
+GenericUpcomingEventsIntent Find me the event schedule
+GenericUpcomingEventsIntent Find me events to go to
+GenericUpcomingEventsIntent Find me events I can attend
+GenericUpcomingEventsIntent Find me events I can go to
+GenericUpcomingEventsIntent Find me events that are happening soon
+GenericUpcomingEventsIntent Find me a list of events
+GenericUpcomingEventsIntent Find me a list of upcoming events
+GenericUpcomingEventsIntent Find me a list of events coming up
+GenericUpcomingEventsIntent Find me upcoming performances
+GenericUpcomingEventsIntent Find me the next performances
+GenericUpcomingEventsIntent Find me the performance schedule
+GenericUpcomingEventsIntent Find me performances to go to
+GenericUpcomingEventsIntent Find me performances I can attend
+GenericUpcomingEventsIntent Find me performances I can go to
+GenericUpcomingEventsIntent Find me performances that are happening soon
+GenericUpcomingEventsIntent Find me a list of performances
+GenericUpcomingEventsIntent Find me a list of upcoming performances
+GenericUpcomingEventsIntent Find me a list of performances coming up
+GenericUpcomingEventsIntent Find me upcoming things
+GenericUpcomingEventsIntent Find me the next few things
+GenericUpcomingEventsIntent Find me the schedule
+GenericUpcomingEventsIntent Find me things to go to
+GenericUpcomingEventsIntent Find me things I can attend
+GenericUpcomingEventsIntent Find me things I can go to
+GenericUpcomingEventsIntent Find me things that are happening soon
+GenericUpcomingEventsIntent Find me a list of upcoming things
+GenericUpcomingEventsIntent Find me a list of things coming up
+GenericUpcomingEventsIntent For a list of upcoming events
+GenericUpcomingEventsIntent For events
+GenericUpcomingEventsIntent For the next events scheduled
+GenericUpcomingEventsIntent For events scheduled soon
+GenericUpcomingEventsIntent For the next performances scheduled
+GenericUpcomingEventsIntent For performances scheduled soon
+GenericUpcomingEventsIntent For scheduled events
+GenericUpcomingEventsIntent For scheduled performances
+GenericUpcomingEventsIntent For an upcoming schedule
+GenericUpcomingEventsIntent For what is happening
+GenericUpcomingEventsIntent For a list of upcoming performances
+GenericUpcomingEventsIntent For performances
+GenericUpcomingEventsIntent For what is happening soon
+GenericUpcomingEventsIntent For events happening soon
+GenericUpcomingEventsIntent For upcoming events
+GenericUpcomingEventsIntent For events happening
+GenericUpcomingEventsIntent For events coming up
+GenericUpcomingEventsIntent For events coming up soon
+GenericUpcomingEventsIntent For events that I can attend
+GenericUpcomingEventsIntent For events that I can go to
+GenericUpcomingEventsIntent For events to go to
+GenericUpcomingEventsIntent For performances happening soon
+GenericUpcomingEventsIntent For upcoming performances
+GenericUpcomingEventsIntent For performances happening
+GenericUpcomingEventsIntent For performances coming up
+GenericUpcomingEventsIntent For performances coming up soon
+GenericUpcomingEventsIntent For performances that I can attend
+GenericUpcomingEventsIntent For performances that I can go to
+GenericUpcomingEventsIntent For performances to go to
+GenericUpcomingEventsIntent For things happening soon
+GenericUpcomingEventsIntent For things happening soon
+GenericUpcomingEventsIntent For things happening
+GenericUpcomingEventsIntent For things coming up
+GenericUpcomingEventsIntent For things coming up soon
+GenericUpcomingEventsIntent For things that I can attend
+GenericUpcomingEventsIntent For things that I can go to
+GenericUpcomingEventsIntent For things to go to
+GenericUpcomingEventsIntent For things to do
+GenericUpcomingEventsIntent Give me more
+GenericUpcomingEventsIntent Give me more events
+GenericUpcomingEventsIntent Give me more performances
+GenericUpcomingEventsIntent Give me more options
+GenericUpcomingEventsIntent Get me upcoming events
+GenericUpcomingEventsIntent Get me the next events
+GenericUpcomingEventsIntent Get me more events
+GenericUpcomingEventsIntent Get me the event schedule
+GenericUpcomingEventsIntent Get me events to go to
+GenericUpcomingEventsIntent Get me events I can attend
+GenericUpcomingEventsIntent Get me events I can go to
+GenericUpcomingEventsIntent Get me events that are happening soon
+GenericUpcomingEventsIntent Get me a list of events
+GenericUpcomingEventsIntent Get me a list of upcoming events
+GenericUpcomingEventsIntent Get me a list of events coming up
+GenericUpcomingEventsIntent Get me upcoming performances
+GenericUpcomingEventsIntent Get me the next performances
+GenericUpcomingEventsIntent Get me more performances
+GenericUpcomingEventsIntent Get me the performance schedule
+GenericUpcomingEventsIntent Get me performances to go to
+GenericUpcomingEventsIntent Get me performances I can attend
+GenericUpcomingEventsIntent Get me performances I can go to
+GenericUpcomingEventsIntent Get me performances that are happening soon
+GenericUpcomingEventsIntent Get me a list of performances
+GenericUpcomingEventsIntent Get me a list of upcoming performances
+GenericUpcomingEventsIntent Get me a list of performances coming up
+GenericUpcomingEventsIntent Get me upcoming things
+GenericUpcomingEventsIntent Get me the next few things
+GenericUpcomingEventsIntent Get me more
+GenericUpcomingEventsIntent Get me the schedule
+GenericUpcomingEventsIntent Get me things to go to
+GenericUpcomingEventsIntent Get me things I can attend
+GenericUpcomingEventsIntent Get me things I can go to
+GenericUpcomingEventsIntent Get me things that are happening soon
+GenericUpcomingEventsIntent Get me a list of upcoming things
+GenericUpcomingEventsIntent Get me a list of things coming up
+GenericUpcomingEventsIntent I want to hear more events
+GenericUpcomingEventsIntent I want to hear more performances
+GenericUpcomingEventsIntent I want to hear more
+GenericUpcomingEventsIntent I want to hear more things
+GenericUpcomingEventsIntent I want to hear what's happening
+GenericUpcomingEventsIntent I want to hear what else is happening
+GenericUpcomingEventsIntent I want to hear what else is coming up
+GenericUpcomingEventsIntent I want a list of upcoming events
+GenericUpcomingEventsIntent I want a list of upcoming performances
+GenericUpcomingEventsIntent I want a list of things coming up
+GenericUpcomingEventsIntent I want a list of events coming up
+GenericUpcomingEventsIntent I want a list of performances coming up
+GenericUpcomingEventsIntent I want a list of the next things
+GenericUpcomingEventsIntent I want a list of the next performances
+GenericUpcomingEventsIntent I want a list of the next events
+GenericUpcomingEventsIntent I want a list of the next ones
+GenericUpcomingEventsIntent If there's anything to do
+GenericUpcomingEventsIntent If there's anything to go to
+GenericUpcomingEventsIntent If there's anything to attend
+GenericUpcomingEventsIntent If there's anything to do soon
+GenericUpcomingEventsIntent If there are any events to go to
+GenericUpcomingEventsIntent If there are any performances to go to
+GenericUpcomingEventsIntent If there are any things to go to
+GenericUpcomingEventsIntent If there are any events scheduled
+GenericUpcomingEventsIntent If there are any performances scheduled
+GenericUpcomingEventsIntent If there's anything scheduled
+GenericUpcomingEventsIntent If there are any events to attend
+GenericUpcomingEventsIntent If there are any performances to attend
+GenericUpcomingEventsIntent If there are any events to attend
+GenericUpcomingEventsIntent If there's anything entertaining happening
+GenericUpcomingEventsIntent Is there anything else
+GenericUpcomingEventsIntent Is there more
+GenericUpcomingEventsIntent Keep going
+GenericUpcomingEventsIntent Keep them coming
+GenericUpcomingEventsIntent Keep talking
+GenericUpcomingEventsIntent Let's keep going
+GenericUpcomingEventsIntent Let's keep them coming
+GenericUpcomingEventsIntent List more
+GenericUpcomingEventsIntent List more events
+GenericUpcomingEventsIntent List more performances
+GenericUpcomingEventsIntent List more things
+GenericUpcomingEventsIntent List upcoming events
+GenericUpcomingEventsIntent List upcoming performances
+GenericUpcomingEventsIntent List upcoming
+GenericUpcomingEventsIntent List events coming up
+GenericUpcomingEventsIntent List performances coming up
+GenericUpcomingEventsIntent List things coming up
+GenericUpcomingEventsIntent List more of the schedule
+GenericUpcomingEventsIntent List next
+GenericUpcomingEventsIntent List next ones
+GenericUpcomingEventsIntent List next events
+GenericUpcomingEventsIntent List next performances
+GenericUpcomingEventsIntent More events
+GenericUpcomingEventsIntent More
+GenericUpcomingEventsIntent More performances
+GenericUpcomingEventsIntent More things
+GenericUpcomingEventsIntent More please
+GenericUpcomingEventsIntent Next events
+GenericUpcomingEventsIntent Next ones
+GenericUpcomingEventsIntent Next performances
+GenericUpcomingEventsIntent Next things
+GenericUpcomingEventsIntent Tell me more
+GenericUpcomingEventsIntent Tell me more events
+GenericUpcomingEventsIntent Tell me more performances
+GenericUpcomingEventsIntent Tell me more things
+GenericUpcomingEventsIntent Tell me more upcoming events
+GenericUpcomingEventsIntent Tell me more upcoming performances
+GenericUpcomingEventsIntent Tell me more events coming up
+GenericUpcomingEventsIntent Tell me more performances coming up
+GenericUpcomingEventsIntent Tell me more things coming up
+GenericUpcomingEventsIntent Tell me what events are happening
+GenericUpcomingEventsIntent Tell me what performances are happening
+GenericUpcomingEventsIntent Tell me what things are happening
+GenericUpcomingEventsIntent Tell me more events I could go to
+GenericUpcomingEventsIntent Tell me more performances I could go to
+GenericUpcomingEventsIntent Tell me more things I could go to
+GenericUpcomingEventsIntent Tell me the next things
+GenericUpcomingEventsIntent Tell me the next events
+GenericUpcomingEventsIntent Tell me the next performances
+GenericUpcomingEventsIntent Then
+GenericUpcomingEventsIntent Then what
 GenericUpcomingEventsIntent To list upcoming events
-GenericUpcomingEventsIntent What's going on
-GenericUpcomingEventsIntent Who's playing
+GenericUpcomingEventsIntent Please tell me more
+GenericUpcomingEventsIntent Please tell me more events
+GenericUpcomingEventsIntent Please tell me more performances
+GenericUpcomingEventsIntent Please tell me more things
+GenericUpcomingEventsIntent Please tell me more upcoming events
+GenericUpcomingEventsIntent Please tell me more upcoming performances
+GenericUpcomingEventsIntent Please tell me more events coming up
+GenericUpcomingEventsIntent Please tell me more performances coming up
+GenericUpcomingEventsIntent Please tell me more things coming up
+GenericUpcomingEventsIntent Please tell me what events are happening
+GenericUpcomingEventsIntent Please tell me what performances are happening
+GenericUpcomingEventsIntent Please tell me what things are happening
+GenericUpcomingEventsIntent Please tell me more events I could go to
+GenericUpcomingEventsIntent Please tell me more performances I could go to
+GenericUpcomingEventsIntent Please tell me more things I could go to
+GenericUpcomingEventsIntent Please tell me the next things
+GenericUpcomingEventsIntent Please tell me the next events
+GenericUpcomingEventsIntent Please tell me the next performances
+GenericUpcomingEventsIntent What are more
+GenericUpcomingEventsIntent What are more events
+GenericUpcomingEventsIntent What are more performances
+GenericUpcomingEventsIntent What are more options
+GenericUpcomingEventsIntent What are upcoming events
+GenericUpcomingEventsIntent What are the next events
+GenericUpcomingEventsIntent What is on the event schedule
+GenericUpcomingEventsIntent What are events I can to go to
+GenericUpcomingEventsIntent What are events I can attend
+GenericUpcomingEventsIntent What are events I can go to
+GenericUpcomingEventsIntent What are events that are happening soon
+GenericUpcomingEventsIntent What are upcoming performances
+GenericUpcomingEventsIntent What are the next performances
+GenericUpcomingEventsIntent What is the performance schedule
+GenericUpcomingEventsIntent What performances can I to go to
+GenericUpcomingEventsIntent What are performances I can attend
+GenericUpcomingEventsIntent What are performances I can go to
+GenericUpcomingEventsIntent What are performances that are happening soon
+GenericUpcomingEventsIntent What are upcoming things
+GenericUpcomingEventsIntent What are the next few things
+GenericUpcomingEventsIntent What's the schedule
+GenericUpcomingEventsIntent What are things to go to
+GenericUpcomingEventsIntent What are things I can attend
+GenericUpcomingEventsIntent What are things I can go to
+GenericUpcomingEventsIntent What are things that are happening soon
+GenericUpcomingEventsIntent What events are coming up
 GenericUpcomingEventsIntent What's playing
 GenericUpcomingEventsIntent What is there to do
 GenericUpcomingEventsIntent What can I go to
-GenericUpcomingEventsIntent If there's anything to do
-GenericUpcomingEventsIntent If there's anything to go to
 GenericUpcomingEventsIntent What's coming up
-GenericUpcomingEventsIntent If there's anything to attend
+GenericUpcomingEventsIntent What events are happening after that
+GenericUpcomingEventsIntent What events there are soon
+GenericUpcomingEventsIntent What events there are happening soon
+GenericUpcomingEventsIntent What events there are coming up
+GenericUpcomingEventsIntent What events there are going to happen
+GenericUpcomingEventsIntent What performances are happening after that
+GenericUpcomingEventsIntent What performances there are soon
+GenericUpcomingEventsIntent What performances there are happening soon
+GenericUpcomingEventsIntent What performances there are coming up
+GenericUpcomingEventsIntent What performances there are going to happen
+GenericUpcomingEventsIntent What things are happening after that
+GenericUpcomingEventsIntent What things there are soon
+GenericUpcomingEventsIntent What things there are happening soon
+GenericUpcomingEventsIntent What things there are coming up
+GenericUpcomingEventsIntent What things there are going to happen
+GenericUpcomingEventsIntent What else is happening after that
+GenericUpcomingEventsIntent What else is there
+GenericUpcomingEventsIntent What else is happening soon
+GenericUpcomingEventsIntent What else is coming up
+GenericUpcomingEventsIntent What else is going to happen
+GenericUpcomingEventsIntent What else is happening
+GenericUpcomingEventsIntent What's going on
+GenericUpcomingEventsIntent What's after that
 GenericUpcomingEventsIntent What's there to attend
-GenericUpcomingEventsIntent If there's anything entertaining happening
-GenericUpcomingEventsIntent For a list of upcoming events
+GenericUpcomingEventsIntent What's happening after
+GenericUpcomingEventsIntent What's the down low on the GMC
+GenericUpcomingEventsIntent What's the down low
+GenericUpcomingEventsIntent What's the DL
+GenericUpcomingEventsIntent What else
+GenericUpcomingEventsIntent Who's playing
 
-DateSpecifiedEventsIntent to tell me events on {dateSpecified}
+DateSpecifiedEventsIntent Is there anything happening {dateSpecified}
+DateSpecifiedEventsIntent Is there anything going on {dateSpecified}
+DateSpecifiedEventsIntent Is there anything happening on {dateSpecified}
+DateSpecifiedEventsIntent Is there anything coming up {dateSpecified}
+DateSpecifiedEventsIntent Is there anything coming up on {dateSpecified}
+DateSpecifiedEventsIntent Is there anything happening during {dateSpecified}
+DateSpecifiedEventsIntent Is there anything coming up during {dateSpecified}
+DateSpecifiedEventsIntent Is there anything to do {dateSpecified}
+DateSpecifiedEventsIntent Is there anything to go to {dateSpecified}
+DateSpecifiedEventsIntent Is there anything to go to during {dateSpecified}
+DateSpecifiedEventsIntent Is there anything to do on {dateSpecified}
+DateSpecifiedEventsIntent Is there anything to do during {dateSpecified}
+DateSpecifiedEventsIntent Is there anything to go to on {dateSpecified}
+DateSpecifiedEventsIntent Is there anything to attend {dateSpecified}
+DateSpecifiedEventsIntent Is there anything to attend on {dateSpecified}
+DateSpecifiedEventsIntent If there is anything for me to do {dateSpecified}
+DateSpecifiedEventsIntent If there is anything for me to go to {dateSpecified}
+DateSpecifiedEventsIntent If there is anything for me to go to during {dateSpecified}
+DateSpecifiedEventsIntent If there is anything for me to do on {dateSpecified}
+DateSpecifiedEventsIntent If there is anything for me to do during {dateSpecified}
+DateSpecifiedEventsIntent If there is anything for me to go to on {dateSpecified}
+DateSpecifiedEventsIntent If there is anything for me to attend {dateSpecified}
+DateSpecifiedEventsIntent If there is anything for me to attend on {dateSpecified}
+DateSpecifiedEventsIntent If there's anything happening {dateSpecified}
+DateSpecifiedEventsIntent If there's anything entertaining happening {dateSpecified}
+DateSpecifiedEventsIntent If there's anything entertaining happening on {dateSpecified}
+DateSpecifiedEventsIntent Find me something on {dateSpecified}
+DateSpecifiedEventsIntent Find me something to do on {dateSpecified}
+DateSpecifiedEventsIntent Find me something to do {dateSpecified}
+DateSpecifiedEventsIntent Find me something to go to {dateSpecified}
+DateSpecifiedEventsIntent Find me something to go to on {dateSpecified}
+DateSpecifiedEventsIntent For a list of events on {dateSpecified}
+DateSpecifiedEventsIntent For events on {dateSpecified}
+DateSpecifiedEventsIntent For a list of events taking place on {dateSpecified}
+DateSpecifiedEventsIntent For a list of events {dateSpecified}
+DateSpecifiedEventsIntent For events {dateSpecified}
+DateSpecifiedEventsIntent For a list of events taking place {dateSpecified}
+DateSpecifiedEventsIntent The {dateSpecified} events
+DateSpecifiedEventsIntent The {dateSpecified} performances
+DateSpecifiedEventsIntent The {dateSpecified} schedule
+DateSpecifiedEventsIntent To tell me events for {dateSpecified}
+DateSpecifiedEventsIntent To tell me events {dateSpecified}
+DateSpecifiedEventsIntent To tell me events on {dateSpecified}
+DateSpecifiedEventsIntent To tell me performances for {dateSpecified}
+DateSpecifiedEventsIntent To tell me performances {dateSpecified}
+DateSpecifiedEventsIntent To tell me performances on {dateSpecified}
+DateSpecifiedEventsIntent Tell me events for {dateSpecified}
+DateSpecifiedEventsIntent Tell me events {dateSpecified}
+DateSpecifiedEventsIntent Tell me events on {dateSpecified}
+DateSpecifiedEventsIntent Tell me performances for {dateSpecified}
+DateSpecifiedEventsIntent Tell me performances {dateSpecified}
+DateSpecifiedEventsIntent Tell me performances on {dateSpecified}
+DateSpecifiedEventsIntent Tell me what's happening {dateSpecified}
+DateSpecifiedEventsIntent Tell me what's going on {dateSpecified}
+DateSpecifiedEventsIntent Tell me what's going down {dateSpecified}
 DateSpecifiedEventsIntent {dateSpecified}
-DateSpecifiedEventsIntent what's playing {dateSpecified}
-DateSpecifiedEventsIntent who's playing {dateSpecified}
+DateSpecifiedEventsIntent On {dateSpecified}
+DateSpecifiedEventsIntent For {dateSpecified}
+DateSpecifiedEventsIntent {dateSpecified} events
+DateSpecifiedEventsIntent {dateSpecified} performances
+DateSpecifiedEventsIntent {dateSpecified} schedule
+DateSpecifiedEventsIntent Schedule on {dateSpecified}
+DateSpecifiedEventsIntent Schedule of {dateSpecified}
+DateSpecifiedEventsIntent Schedule during {dateSpecified}
+DateSpecifiedEventsIntent What's coming up {dateSpecified}
+DateSpecifiedEventsIntent What's coming up on {dateSpecified}
+DateSpecifiedEventsIntent What's there to attend {dateSpecified}
+DateSpecifiedEventsIntent What's playing {dateSpecified}
+DateSpecifiedEventsIntent Who's playing {dateSpecified}
 DateSpecifiedEventsIntent What's going on {dateSpecified}
 DateSpecifiedEventsIntent What's happening {dateSpecified}
 DateSpecifiedEventsIntent What can I do {dateSpecified}
 DateSpecifiedEventsIntent What can I go to {dateSpecified}
-DateSpecifiedEventsIntent Is there anything to do {dateSpecified}
-DateSpecifiedEventsIntent Is there anything to go to {dateSpecified}
-DateSpecifiedEventsIntent What's coming up {dateSpecified}
-DateSpecifiedEventsIntent Is there anything to attend {dateSpecified}
-DateSpecifiedEventsIntent What's there to attend {dateSpecified}
-DateSpecifiedEventsIntent If there's anything entertaining happening {dateSpecified}
-DateSpecifiedEventsIntent For a list of events {dateSpecified}
-DateSpecifiedEventsIntent For events {dateSpecified}
-DateSpecifiedEventsIntent For a list of events taking place {dateSpecified}
+DateSpecifiedEventsIntent What's there to attend on {dateSpecified}
+DateSpecifiedEventsIntent what's playing on {dateSpecified}
+DateSpecifiedEventsIntent Who's playing on {dateSpecified}
+DateSpecifiedEventsIntent What's happening on {dateSpecified}
+DateSpecifiedEventsIntent What can I go to on {dateSpecified}
+DateSpecifiedEventsIntent What about {dateSpecified}
 
 StartGMCIntent Can you ask GMC something
 StartGMCIntent Can you ask Green music center something
 StartGMCIntent Can you tell me what you do
+StartGMCIntent How do you work
+StartGMCIntent Help
+StartGMCIntent Tell me what to do
+StartGMCIntent Tell me how this works
+StartGMCIntent Tell me your secrets
+StartGMCIntent for help
 
 SpecificEventDetailsIntent Can you tell me about {specificEvent}
 SpecificEventDetailsIntent Can you tell me more about {specificEvent}
-SpecificEventDetailsIntent What is {specificEvent}
-SpecificEventDetailsIntent What is the {specificEvent}
+SpecificEventDetailsIntent Could you tell me about {specificEvent}
+SpecificEventDetailsIntent Could you tell me more about {specificEvent}
+SpecificEventDetailsIntent Get information on {specificEvent}
+SpecificEventDetailsIntent Get information about {specificEvent}
+SpecificEventDetailsIntent Get information for {specificEvent}
+SpecificEventDetailsIntent Get info on {specificEvent}
+SpecificEventDetailsIntent Get info about {specificEvent}
+SpecificEventDetailsIntent Get info for {specificEvent}
+SpecificEventDetailsIntent Give me details about {specificEvent}
 SpecificEventDetailsIntent How much does {specificEvent} cost
+SpecificEventDetailsIntent Information on {specificEvent}
+SpecificEventDetailsIntent Information about {specificEvent}
+SpecificEventDetailsIntent Information for {specificEvent}
+SpecificEventDetailsIntent Info on {specificEvent}
+SpecificEventDetailsIntent Info about {specificEvent}
+SpecificEventDetailsIntent Info for {specificEvent}
+SpecificEventDetailsIntent Tell me more about {specificEvent}
+SpecificEventDetailsIntent Tell me information about {specificEvent}
+SpecificEventDetailsIntent Tell me information for {specificEvent}
+SpecificEventDetailsIntent What is {specificEvent}
+SpecificEventDetailsIntent What is the deal with {specificEvent}
+SpecificEventDetailsIntent What is up with {specificEvent}
+SpecificEventDetailsIntent What is {specificEvent} known for
+SpecificEventDetailsIntent What is the {specificEvent}
 SpecificEventDetailsIntent Who is {specificEvent}
+SpecificEventDetailsIntent Whose {specificEvent}
+SpecificEventDetailsIntent Who the hell is {specificEvent}
+SpecificEventDetailsIntent Would you tell me about {specificEvent}
+SpecificEventDetailsIntent Would you tell me more about {specificEvent}
 
+SpecificEventPurchaseIntent Book tickets for {specificEvent}
+SpecificEventPurchaseIntent Book a ticket for {specificEvent}
+SpecificEventPurchaseIntent Book seats for {specificEvent}
+SpecificEventPurchaseIntent Book a seat for {specificEvent}
 SpecificEventPurchaseIntent Can you reserve tickets for {specificEvent}
 SpecificEventPurchaseIntent Can you reserve tickets for {specificEvent} on {dateSpecified}
-SpecificEventPurchaseIntent I need tickets for {specificEvent}
-SpecificEventPurchaseIntent I need tickets for {specificEvent} on {dateSpecified}
 SpecificEventPurchaseIntent Can you buy {specificEvent} tickets for me
-SpecificEventPurchaseIntent Can you buy {specificEvent} tickets for the {dateSpecified} time for me
+SpecificEventPurchaseIntent Can you buy {specificEvent} tickets for the {dateSpecified}
+SpecificEventPurchaseIntent Can I score some tickets for {specificEvent}
+SpecificEventPurchaseIntent Can I score a ticket for {specificEvent}
+SpecificEventPurchaseIntent Can I score some seats for {specificEvent}
+SpecificEventPurchaseIntent Can I score a seat for {specificEvent}
+SpecificEventPurchaseIntent Can I buy some tickets for {specificEvent}
+SpecificEventPurchaseIntent Can I buy a ticket for {specificEvent}
+SpecificEventPurchaseIntent Can I buy some seats for {specificEvent}
+SpecificEventPurchaseIntent Can I buy a seat for {specificEvent}
+SpecificEventPurchaseIntent Can I purchase some tickets for {specificEvent}
+SpecificEventPurchaseIntent Can I purchase a ticket for {specificEvent}
+SpecificEventPurchaseIntent Can I purchase some seats for {specificEvent}
+SpecificEventPurchaseIntent Can I purchase a seat for {specificEvent}
+SpecificEventPurchaseIntent Can I reserve some tickets for {specificEvent}
+SpecificEventPurchaseIntent Can I reserve a ticket for {specificEvent}
+SpecificEventPurchaseIntent Can I reserve some seats for {specificEvent}
+SpecificEventPurchaseIntent Can I reserve a seat for {specificEvent}
+SpecificEventPurchaseIntent I need tickets for {specificEvent}
+SpecificEventPurchaseIntent I want tickets for {specificEvent}
+SpecificEventPurchaseIntent I need seats for {specificEvent}
+SpecificEventPurchaseIntent I want tickets for {specificEvent}
+SpecificEventPurchaseIntent I need a ticket for {specificEvent}
+SpecificEventPurchaseIntent I need a seat for {specificEvent}
+SpecificEventPurchaseIntent I need tickets for {specificEvent} on {dateSpecified}
+SpecificEventPurchaseIntent Get me seats for {specificEvent}
+SpecificEventPurchaseIntent Get me tickets for {specificEvent}
+SpecificEventPurchaseIntent Get me a seat for {specificEvent}
+SpecificEventPurchaseIntent Get me a seat for {specificEvent}
+SpecificEventPurchaseIntent Give me tickets for {specificEvent}
+SpecificEventPurchaseIntent Give me seats for {specificEvent}
+SpecificEventPurchaseIntent Give me a ticket for {specificEvent}
+SpecificEventPurchaseIntent Give me a seat for {specificEvent}
+SpecificEventPurchaseIntent Let's get tickets for {specificEvent}
+SpecificEventPurchaseIntent Let me get tickets for {specificEvent}
+SpecificEventPurchaseIntent Let me get a ticket for {specificEvent}
+SpecificEventPurchaseIntent Let me get seats for {specificEvent}
+SpecificEventPurchaseIntent Let me get a seat for {specificEvent}
+SpecificEventPurchaseIntent Order tickets for {specificEvent}
+SpecificEventPurchaseIntent Order a ticket for {specificEvent}
+SpecificEventPurchaseIntent Order seats for {specificEvent}
+SpecificEventPurchaseIntent Reserve tickets for {specificEvent}
+SpecificEventPurchaseIntent Reserve a ticket for {specificEvent}
+SpecificEventPurchaseIntent Reserve seats for {specificEvent}
+SpecificEventPurchaseIntent Reserve a seat for {specificEvent}
+SpecificEventPurchaseIntent Send me tickets for {specificEvent}
+SpecificEventPurchaseIntent Send me a ticket for {specificEvent}
+SpecificEventPurchaseIntent Send me seats for {specificEvent}
+SpecificEventPurchaseIntent Send me a seat for {specificEvent}
+SpecificEventPurchaseIntent Save me tickets for {specificEvent}
+SpecificEventPurchaseIntent Save me a ticket for {specificEvent}
+SpecificEventPurchaseIntent Save me seats for {specificEvent}
+SpecificEventPurchaseIntent Save me a seat for {specificEvent}
 
-MoreIntent What events are happening after that
-MoreIntent what else is happening that week
-MoreIntent Can you list some more events
 
-// Common Intents
-AMAZON.NoIntent nope
-AMAZON.NoIntent no way
-AMAZON.NoIntent hell no
-AMAZON.NoIntent niet
+KnownEventTicketsIntent Buy tickets for it
+KnownEventTicketsIntent Buy tickets
+KnownEventTicketsIntent Book tickets for that event
+KnownEventTicketsIntent Book tickets for this event
+KnownEventTicketsIntent Book tickets for the event
+KnownEventTicketsIntent Book tickets
+KnownEventTicketsIntent Book tickets for me
+KnownEventTicketsIntent Book me tickets
+KnownEventTicketsIntent Book seats for that event
+KnownEventTicketsIntent Book seats for this event
+KnownEventTicketsIntent Book seats for the event
+KnownEventTicketsIntent Book seats
+KnownEventTicketsIntent Book me seats
+KnownEventTicketsIntent Book seats for me
+KnownEventTicketsIntent Can I score some tickets
+KnownEventTicketsIntent Can I score a ticket
+KnownEventTicketsIntent Can I score a seat
+KnownEventTicketsIntent Can I score some seats
+KnownEventTicketsIntent Can I acquire tickets
+KnownEventTicketsIntent Can I buy tickets
+KnownEventTicketsIntent Can I get tickets
+KnownEventTicketsIntent Can I purchase a ticket
+KnownEventTicketsIntent Can I purchase tickets for that
+KnownEventTicketsIntent Can I purchase tickets for that event
+KnownEventTicketsIntent Can I purchase tickets for that performance
+KnownEventTicketsIntent Can I purchase tickets for this
+KnownEventTicketsIntent Can I purchase tickets for this event
+KnownEventTicketsIntent Can I purchase tickets for this performance
+KnownEventTicketsIntent Can I purchase tickets for the event
+KnownEventTicketsIntent Can I purchase tickets for the performance
+KnownEventTicketsIntent Can I buy a ticket
+KnownEventTicketsIntent Can I buy tickets for that
+KnownEventTicketsIntent Can I buy tickets for that event
+KnownEventTicketsIntent Can I buy tickets for that performance
+KnownEventTicketsIntent Can I buy tickets for this
+KnownEventTicketsIntent Can I buy tickets for this event
+KnownEventTicketsIntent Can I buy tickets for this performance
+KnownEventTicketsIntent Can I buy tickets for the event
+KnownEventTicketsIntent Can I buy tickets for the performance
+KnownEventTicketsIntent Can I have a ticket
+KnownEventTicketsIntent Can I have tickets for that
+KnownEventTicketsIntent Can I have tickets for that event
+KnownEventTicketsIntent Can I have tickets for that performance
+KnownEventTicketsIntent Can I have tickets for this
+KnownEventTicketsIntent Can I have tickets for this event
+KnownEventTicketsIntent Can I have tickets for this performance
+KnownEventTicketsIntent Can I have tickets for the event
+KnownEventTicketsIntent Can I have tickets for the performance
+KnownEventTicketsIntent Can I get tickets
+KnownEventTicketsIntent Can I get a ticket
+KnownEventTicketsIntent Can I get tickets for that
+KnownEventTicketsIntent Can I get tickets for that event
+KnownEventTicketsIntent Can I get tickets for that performance
+KnownEventTicketsIntent Can I get tickets for this
+KnownEventTicketsIntent Can I get tickets for this event
+KnownEventTicketsIntent Can I get tickets for this performance
+KnownEventTicketsIntent Can I get tickets for the event
+KnownEventTicketsIntent Can I get tickets for the performance
+KnownEventTicketsIntent Can I buy seats
+KnownEventTicketsIntent Can I get seats
+KnownEventTicketsIntent Can I get a seat
+KnownEventTicketsIntent Can I get seats for that
+KnownEventTicketsIntent Can I get seats for that event
+KnownEventTicketsIntent Can I get seats for that performance
+KnownEventTicketsIntent Can I get seats for this
+KnownEventTicketsIntent Can I get seats for this event
+KnownEventTicketsIntent Can I get seats for this performance
+KnownEventTicketsIntent Can I get seats for the event
+KnownEventTicketsIntent Can I get seats for the performance
+KnownEventTicketsIntent Can I purchase seats
+KnownEventTicketsIntent Can I purchase a seat
+KnownEventTicketsIntent Can I purchase seats for that
+KnownEventTicketsIntent Can I purchase seats for that event
+KnownEventTicketsIntent Can I purchase seats for that performance
+KnownEventTicketsIntent Can I purchase seats for this
+KnownEventTicketsIntent Can I purchase seats for this event
+KnownEventTicketsIntent Can I purchase seats for this performance
+KnownEventTicketsIntent Can I purchase seats for the event
+KnownEventTicketsIntent Can I purchase seats for the performance
+KnownEventTicketsIntent Can I buy seats
+KnownEventTicketsIntent Can I buy a seat
+KnownEventTicketsIntent Can I buy seats for that
+KnownEventTicketsIntent Can I buy seats for that event
+KnownEventTicketsIntent Can I buy seats for that performance
+KnownEventTicketsIntent Can I buy seats for this
+KnownEventTicketsIntent Can I buy seats for this event
+KnownEventTicketsIntent Can I buy seats for this performance
+KnownEventTicketsIntent Can I buy seats for the event
+KnownEventTicketsIntent Can I buy seats for the performance
+KnownEventTicketsIntent Can I order tickets
+KnownEventTicketsIntent Can I order a ticket
+KnownEventTicketsIntent Cool can I buy tickets
+KnownEventTicketsIntent Find tickets
+KnownEventTicketsIntent Find a ticket
+KnownEventTicketsIntent Find tickets for me
+KnownEventTicketsIntent Find seats
+KnownEventTicketsIntent Find aseat
+KnownEventTicketsIntent Find seats for me
+KnownEventTicketsIntent Get tickets
+KnownEventTicketsIntent Get seats
+KnownEventTicketsIntent Get me tickets
+KnownEventTicketsIntent Get tickets for that
+KnownEventTicketsIntent Get seats for that
+KnownEventTicketsIntent Get tickets for it
+KnownEventTicketsIntent Get seats for it
+KnownEventTicketsIntent Get tickets for that event
+KnownEventTicketsIntent Get tickets for this event
+KnownEventTicketsIntent Get tickets for the event
+KnownEventTicketsIntent Get seats for that event
+KnownEventTicketsIntent Get seats for this event
+KnownEventTicketsIntent Get seats for the event
+KnownEventTicketsIntent Get tickets for that performance
+KnownEventTicketsIntent Get tickets for this performance
+KnownEventTicketsIntent Get tickets for the performance
+KnownEventTicketsIntent Get seats for that performance
+KnownEventTicketsIntent Get seats for this performance
+KnownEventTicketsIntent Get seats for the performance
+KnownEventTicketsIntent Give me tickets right now
+KnownEventTicketsIntent Grab me tickets
+KnownEventTicketsIntent Grab me some tickets
+KnownEventTicketsIntent Grab me a ticket
+KnownEventTicketsIntent Grab me seats
+KnownEventTicketsIntent Grab me some seats
+KnownEventTicketsIntent Grab me a seat
+KnownEventTicketsIntent Help me get some tickets
+KnownEventTicketsIntent Help me get some seats
+KnownEventTicketsIntent Help me buy some tickets
+KnownEventTicketsIntent Help me buy some seats
+KnownEventTicketsIntent Hold tickets for that
+KnownEventTicketsIntent Hold tickets for it
+KnownEventTicketsIntent Hold tickets for that event
+KnownEventTicketsIntent Hold tickets for this event
+KnownEventTicketsIntent Hold tickets for the event
+KnownEventTicketsIntent Hold tickets for that performance
+KnownEventTicketsIntent Hold tickets for this performance
+KnownEventTicketsIntent Hold tickets for the performance
+KnownEventTicketsIntent Hold tickets
+KnownEventTicketsIntent Hold tickets for me
+KnownEventTicketsIntent Hold seats for that event
+KnownEventTicketsIntent Hold seats for this event
+KnownEventTicketsIntent Hold seats for the event
+KnownEventTicketsIntent Hold seats for that performance
+KnownEventTicketsIntent Hold seats for this performance
+KnownEventTicketsIntent Hold seats for the performance
+KnownEventTicketsIntent Hold seats
+KnownEventTicketsIntent Hold me seats
+KnownEventTicketsIntent I want to go to that
+KnownEventTicketsIntent Let me get tickets
+KnownEventTicketsIntent Let me get seats
+KnownEventTicketsIntent Let me get a reservation
+KnownEventTicketsIntent Let's get tickets for that
+KnownEventTicketsIntent Let's go
+KnownEventTicketsIntent Let's go to that
+KnownEventTicketsIntent Order tickets
+KnownEventTicketsIntent Order tickets for me
+KnownEventTicketsIntent Order seats for that
+KnownEventTicketsIntent Order tickets for it
+KnownEventTicketsIntent Please buy tickets
+KnownEventTicketsIntent Purchase tickets
+KnownEventTicketsIntent Purchase seats
+KnownEventTicketsIntent Purchase tickets for the event
+KnownEventTicketsIntent Reserve tickets for me
+KnownEventTicketsIntent Reserve tickets
+KnownEventTicketsIntent Reserve tickets for that
+KnownEventTicketsIntent Reserve tickets for it
+KnownEventTicketsIntent Reserve tickets for that event
+KnownEventTicketsIntent Reserve tickets for this event
+KnownEventTicketsIntent Reserve tickets for the event
+KnownEventTicketsIntent Reserve tickets for that performance
+KnownEventTicketsIntent Reserve tickets for this performance
+KnownEventTicketsIntent Reserve tickets for the performance
+KnownEventTicketsIntent Reserve seats for that
+KnownEventTicketsIntent Reserve seats for it
+KnownEventTicketsIntent Reserve seats for that event
+KnownEventTicketsIntent Reserve seats for this event
+KnownEventTicketsIntent Reserve seats for the event
+KnownEventTicketsIntent Reserve seats for that performance
+KnownEventTicketsIntent Reserve seats for this performance
+KnownEventTicketsIntent Reserve seats for the performance
+KnownEventTicketsIntent Reserve seats
+KnownEventTicketsIntent Reserve seats for me
+KnownEventTicketsIntent Please get me tickets
+KnownEventTicketsIntent Please get me seats
+KnownEventTicketsIntent Set aside some tickets
+KnownEventTicketsIntent Set aside a ticket
+KnownEventTicketsIntent Send me a reservation
+KnownEventTicketsIntent Send me an order
+KnownEventTicketsIntent Send me tickets
+KnownEventTicketsIntent Send me tickets for that
+KnownEventTicketsIntent Send me tickets for this
+KnownEventTicketsIntent Send me tickets for that event
+KnownEventTicketsIntent Send me tickets for this event
+KnownEventTicketsIntent Send me tickets for the event
+KnownEventTicketsIntent Send me tickets for that performance
+KnownEventTicketsIntent Send me tickets for this performance
+KnownEventTicketsIntent Send me tickets for the performance
+KnownEventTicketsIntent Save me tickets right now
+KnownEventTicketsIntent Save me tickets for that
+KnownEventTicketsIntent Save me some tickets
+KnownEventTicketsIntent Save me a ticket
+KnownEventTicketsIntent Save a ticket for me
+KnownEventTicketsIntent Save me seats
+KnownEventTicketsIntent Save me some seats
+KnownEventTicketsIntent Save a seat for me
+KnownEventTicketsIntent Save me a seat
+KnownEventTicketsIntent Tickets
+KnownEventTicketsIntent Tickets please
 
-AMAZON.YesIntent for sure
-AMAZON.YesIntent absolutely
-AMAZON.YesIntent why not
-AMAZON.YesIntent yes let's
-AMAZON.YesIntent sure
-AMAZON.YesIntent of course
-AMAZON.YesIntent go ahead
+HowMuchIntent How much is {specificEvent}
+HowMuchIntent How much does {specificEvent} cost
+HowMuchIntent How much is it for tickets to {specificEvent}
+HowMuchIntent What is the price for tickets to {specificEvent}
+HowMuchIntent can you get me the price for {specificEvent}
+HowMuchIntent what is the cost of tickets for {specificEvent}
 
-AMAZON.StopIntent I think I'm good
-AMAZON.StopIntent Ok that's enough
-AMAZON.StopIntent Alright thanks for the help
+WhatDateIntent What date is {specificEvent}
+WhatDateIntent What date is {specificEvent} playing
+WhatDateIntent What date is {specificEvent} happening
+WhatDateIntent What date is {specificEvent} going on
+WhatDateIntent What date is {specificEvent} going down
+WhatDateIntent What date is {specificEvent} going to be
+WhatDateIntent What day is {specificEvent}
+WhatDateIntent What day is {specificEvent} playing
+WhatDateIntent What day is {specificEvent} happening
+WhatDateIntent What day is {specificEvent} going on
+WhatDateIntent What day is {specificEvent} going down
+WhatDateIntent What day is {specificEvent} going to be
+WhatDateIntent When is {specificEvent}
+WhatDateIntent When is {specificEvent} playing
+WhatDateIntent When is {specificEvent} happening
+WhatDateIntent When is {specificEvent} going to be
+WhatDateIntent When is {specificEvent} going down
+WhatDateIntent When is {specificEvent} going on
+WhatDateIntent What days are {specificEvent} playing on
+WhatDateIntent Can you tell me when {specificEvent} is playing
+
+WhatTimeIntent What time is {specificEvent}
+WhatTimeIntent What time does {specificEvent} start at
+
+KnownEventHowMuchIntent How much is it
+KnownEventHowMuchIntent How much does it cost
+KnownEventHowMuchIntent Is it expensive
+KnownEventHowMuchIntent What does it cost
+
+KnownEventWhatDateIntent What date is it
+KnownEventWhatDateIntent What day is it
+KnownEventWhatDateIntent What day is it on
+KnownEventWhatDateIntent How long is it until then
+
+
+KnownEventWhatTimeIntent What time is it
+KnownEventWhatTimeIntent When is it
+KnownEventWhatTimeIntent what time does it start
+KnownEventWhatTimeIntent what time does it start again

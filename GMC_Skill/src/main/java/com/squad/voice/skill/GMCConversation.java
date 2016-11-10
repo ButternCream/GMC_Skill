@@ -11,12 +11,6 @@ import com.squad.voice.model.base.Conversation;
 import java.util.Map;
 import com.squad.voice.skill.Event;
 
-/*
- * 
- * FIX THE NewAskResponse parameters.
- * 
- */
-
 
 public class GMCConversation extends Conversation {
 	// Intent names
@@ -39,8 +33,9 @@ public class GMCConversation extends Conversation {
 	private final static String INTENT_NO = "AMAZON.NoIntent";
 	private final static String INTENT_HELP = "AMAZON.HelpIntent";
 	private final static String INTENT_STOP = "AMAZON.StopIntent";
+	private final static String INTENT_REPEAT = "AMAZON.RepeatIntent";
 	private final static String INTENT_CANCEL = "AMAZON.CancelIntent";
-	private final static String INTENT_END_CONVERSATION = "EndConvoIntent";
+	//private final static String INTENT_END_CONVERSATION = "EndConvoIntent";
 
 
 	// Slots
@@ -55,13 +50,15 @@ public class GMCConversation extends Conversation {
 	private final static Integer STATE_MADE_RESERV = 100003;
 
 	// Session state storage key
-	// Im still not sure what this does, I think it prevents the session from terminating
 	private final static String SESSION_EVENT_STATE = "eventState";
 
-	//Parse the RSS feed into the array of events
+	// Parse the RSS feed into the array of events
 	public Event[] events = new Event().parseRSSFeed();
 
+	// Globals
 	public int lastRead = 0;
+	SpeechletResponse storedResponse = newAskResponse("I haven't said anything yet", false, "You can ask for events occurring on a specific date", false);
+	SimpleCard lastReadCard = new SimpleCard();
 	
 	public GMCConversation() {
 		super();
@@ -74,8 +71,6 @@ public class GMCConversation extends Conversation {
 		supportedIntentNames.add(INTENT_MORE_EVENTS);
 		supportedIntentNames.add(INTENT_SPECIFIC_EVENT_PURCHASE);
 		supportedIntentNames.add(INTENT_LAST_EVENT_PURCHASE);
-		supportedIntentNames.add(INTENT_END_CONVERSATION);
-
 
 		supportedIntentNames.add(INTENT_HOW_MUCH);
 		supportedIntentNames.add(INTENT_WHAT_DATE);
@@ -88,13 +83,14 @@ public class GMCConversation extends Conversation {
 		supportedIntentNames.add(INTENT_NO);
 		supportedIntentNames.add(INTENT_HELP);
 		supportedIntentNames.add(INTENT_STOP);
+		supportedIntentNames.add(INTENT_REPEAT);
 		supportedIntentNames.add(INTENT_CANCEL);
 
 	}
 
-	// TODO: implement handler functions to create a functioning state machine for our conversational model
-	// functions that handle requests go below this line
-
+	/**
+	 * Conversation handler. Decides which handler will respond to the user based on the Intent of their utterance
+	 */
 	@Override
 	public SpeechletResponse respondToIntentRequest(IntentRequest intentReq, Session session) {
 		Intent intent = intentReq.getIntent();
@@ -139,9 +135,12 @@ public class GMCConversation extends Conversation {
 		else if (INTENT_KNOWN_EVENT_HOW_MUCH.equals(intentName)){
 			response = handleKnownEventHowMuchIntent(intentReq, session);
 		}
-		else if (INTENT_END_CONVERSATION.equals( intentName )){
+		else if (INTENT_CANCEL.equals( intentName )){
 			response = handleEndConvoIntent(intentReq, session);
-}
+		}
+		else if (INTENT_REPEAT.equals(intentName)) {
+			response = handleRepeatIntent(intentReq, session);
+		}
 		else {
 			response = newTellResponse("Sorry, I didn't get that.", false);
 		}
@@ -149,17 +148,31 @@ public class GMCConversation extends Conversation {
 		return response;
 	}
 
+	/**
+	 * Intent: cancel skill
+	 * Terminates the conversation
+     */
 	private SpeechletResponse handleEndConvoIntent(IntentRequest intentReq, Session session) {
 		SpeechletResponse response = newTellResponse("Alright, let me know if you need anything else.", false);
-		session.setAttribute(SESSION_EVENT_STATE, STATE_WAITING_FOR_EVENT_REQ);
+		session.removeAttribute(SESSION_EVENT_STATE);
 
 		return response;
 
 
 	}
 
-	//Pre: Takes in generic call to GMC skill
-	//Post: Prompts user to ask about upcoming events
+	/**
+	 * Intent: repeat
+	 * Repeats the last response read to the user
+     */
+	private SpeechletResponse handleRepeatIntent(IntentRequest intentreq, Session session) {
+		return storedResponse;
+	}
+
+	/**
+	 * Intent: none/help
+	 * Provides information regarding the skill and sends a skill instruction card to the app
+     */
 	private SpeechletResponse handleGMCIntentStart(IntentRequest intentReq, Session session) {
 		SimpleCard card = new SimpleCard();
 		card.setTitle("Green Music Center");
@@ -170,13 +183,16 @@ public class GMCConversation extends Conversation {
 		response.setCard(card);
 		session.setAttribute(SESSION_EVENT_STATE, STATE_WAITING_FOR_EVENT_REQ);
 
+		storedResponse = response;
 		return response;
 
 
 	}
 
-	//Pre: Takes a generic request for upcoming events
-	//Post: Lists three most recent events, prompts user to ask about a specific event or ask for more events
+	/**
+	 * Intent: Request information about an unspecified range of events
+	 * Provides the names of the three events following the last read event
+     */
 	private SpeechletResponse handleGenericUpcomingIntent(IntentRequest intentReq, Session session) {
 		SpeechletResponse response;
 		if (lastRead >= events[0].size()){
@@ -198,14 +214,17 @@ public class GMCConversation extends Conversation {
 				": " + events[lastRead += 1].getTitle() + ": and " + events[lastRead += 1].getTitle() + "; Would you like to hear about a specific event, or would you like to hear about more events?",false, "Try asking for more events.",false);
 		lastRead++;
 		session.setAttribute(SESSION_EVENT_STATE, STATE_GIVEN_EVENTS);
+
+		storedResponse = response;
 		return response;
 
 	}
 
-	//Pre: 	Takes a request for events on or around a specified date.
-	//		**I think this declaration needs to change to accept Amazon.date slot**
-	//Post: Lists events in specified range, or explains there are no events in range and presents user
-	//	    with three events closest to desired date.
+	/**
+	 * Intent: Request for information regarding events happening on a certain date
+	 * Responds with a list of events occurring on the specified date as well as sending a card with the list
+	 * to the alexa app. If there are no events on that day it informs the user of that.
+     */
 	private SpeechletResponse handleDateSpecifiedIntent(IntentRequest intentReq, Session session) {
 		Intent intent = intentReq.getIntent();
 		Map<String, Slot> slots = intent.getSlots();
@@ -253,7 +272,7 @@ public class GMCConversation extends Conversation {
 		
 		int temp = eventDateNum + 1;
 		if(eventOnDate){
-			response = newAskResponse("There is an event on that date! " + events_str, false, "You can ask to reseve tickets for this event, or for more details", false);
+			response = newAskResponse("There is an event on that date! " + events_str, false, "You can ask to reserve tickets for this event, or for more details", false);
 		}
 		else{
 			response = newAskResponse("Sorry, there are no events happening on that date.", false, "", false);
@@ -261,13 +280,16 @@ public class GMCConversation extends Conversation {
 
 		session.setAttribute(SESSION_EVENT_STATE, STATE_GIVEN_EVENTS);
 		response.setCard(card);
+
+		storedResponse = response;
 		return response;
 
 	}
 
-	//Pre: Takes a request for details about a specified Event
-	//		**This needs to be changed to accept a specific event as a slot, that slot needs to be defined above**
-	//Post: Reads a one or two sentace description of the event specified, prompts user to purchase tickets.
+	/**
+	 * Intent: Request for information on a specific event
+	 * Responds to the user with the description, cost, and time of the event
+     */
 	private SpeechletResponse handleSpecificEventDetailsIntent(IntentRequest intentReq, Session session) {
 		Intent intent = intentReq.getIntent();
 		Map<String, Slot> slots = intent.getSlots();
@@ -275,8 +297,6 @@ public class GMCConversation extends Conversation {
 		String event = eventNameSlot.getValue();
 		SpeechletResponse response = null;
 
-		// This function is going to have to use the slot input and search for it in our database
-		// but for now its hardcoded		
 		boolean eventMatch = false; 
 		int eventMatchNum = 0;
 		for(int i = 0; i < events[0].size(); i++){
@@ -294,64 +314,84 @@ public class GMCConversation extends Conversation {
 		content += "\nCost: " + events[eventMatchNum].getPrice();
 		card.setContent(content);
 		
-		if(eventMatch){
-			response = newAskResponse(events[eventMatchNum].getDesc(), false, "You can ask for the time or date of this event, ask to buy tickets, or ask for more events.", false);
+		if (eventMatch) {
+			response = newAskResponse(events[eventMatchNum].getDesc(), false, "You can ask for the time or date of this event, " +
+					"ask to buy tickets, or ask for more events.", false);
 			session.setAttribute(SESSION_EVENT_STATE, STATE_GIVEN_DETAILS);
-		}else{
-			response = newAskResponse("Sorry, I didn't get that.", false, "", false);
 		}
-		response.setCard(card);
+		else {
+			response = newAskResponse("I'm sorry, could you please repeat that.", false, "", false);
+		}
+		lastReadCard = card;
+
+		storedResponse = response;
 		return response;
 
 
 	}
 
-	//Pre: Takes a request to purchase tickets for specific event
-	//		**This needs to be changed to accept a specific event as a slot, that slot needs to be defined above**
-	//Post: if(personal){Asks user for confirmation they'd like to purchase ticket, bills their amazon account for the
-	//		ticket and sends the ticket to user's amazon email}**How do we tie this to amazon acct/email?**
-	// 		else{prompt user for their email and sends link to purchase tickets to aforementioned email.
-	//		**We may want to fork this call to give options for ticketing levels, ask about #of tickets to purchase**
-		private SpeechletResponse handleSpecificEventPurchaseIntent(IntentRequest intentReq, Session session) {
-			Intent intent = intentReq.getIntent();
-			Map<String, Slot> slots = intent.getSlots();
-			Slot eventNameSlot = slots.get("specificEvent");
-			String event = eventNameSlot.getValue();
-			SpeechletResponse response = null;
+	/**
+	 * Intent: reserve tickets for a specified event
+	 * Sends an info card with puchasing detail the users alexa app
+     */
+	private SpeechletResponse handleSpecificEventPurchaseIntent(IntentRequest intentReq, Session session) {
+		Intent intent = intentReq.getIntent();
+		Map<String, Slot> slots = intent.getSlots();
+		Slot eventNameSlot = slots.get("specificEvent");
+		String event = eventNameSlot.getValue();
+		SpeechletResponse response = null;
 	
-			// This function is going to have to use the slot input and search for it in our database
-			boolean eventMatch = false; 
-			int eventMatchNum = 0;
-			for(int i = 0; i < events[0].size(); i++){
-					if(((events[i].getTitle()).toLowerCase()).contains(event.toLowerCase()) ){
-						eventMatch = true;
-						eventMatchNum = i;
-						int lastRead = eventMatchNum; 
-						break; 
-					}
+		boolean eventMatch = false;
+		int eventMatchNum = 0;
+		for(int i = 0; i < events[0].size(); i++){
+			if(((events[i].getTitle()).toLowerCase()).contains(event.toLowerCase()) ){
+				eventMatch = true;
+				eventMatchNum = i;
+				int lastRead = eventMatchNum;
+				break;
 			}
-			if(eventMatch){
-				response = newTellResponse(events[eventMatchNum].getTitle() + " costs: " + events[eventMatchNum].getPrice() + "; I have sent a card to your alexa app with a link to purchase.", false);
-				session.setAttribute(SESSION_EVENT_STATE, STATE_GIVEN_DETAILS);
-			}else{
-				response = newAskResponse("Sorry, I didn't get that.", false, "", false);
-			}
-			return response;
+		}
+		if (eventMatch) {
+			response = newTellResponse(events[eventMatchNum].getTitle() + " costs: " + events[eventMatchNum].getPrice() + "; I have sent a card to your alexa app with a link to purchase.", false);
+			session.removeAttribute(SESSION_EVENT_STATE);
+		}
+		else {
+			response = newAskResponse("I'm sorry, could you please repeat that.", false, "I'm sorry, could you please repeat that.", false);
+		}
+
+		storedResponse = response;
+		return response;
 
 	}
-	
 
+
+	/**
+	 * Intent: recieve purchasing info on the last event read off
+	 * Sends a card with information regarding the event whose detail were last read
+     */
 	private SpeechletResponse handleLastEventPurchaseIntent(IntentRequest intentReq, Session session) {
-			SpeechletResponse response = null;
-			response = newTellResponse(events[lastRead].getTitle() + " costs: " + events[lastRead].getPrice() + "; " + events[lastRead].getSite() + "; I have sent a card to your alexa app with a link to purchase.",false);
-			session.setAttribute(SESSION_EVENT_STATE, STATE_GIVEN_DETAILS);
-			return response;
+		SpeechletResponse response = null;
+		if (session.getAttribute(SESSION_EVENT_STATE) != null
+				&& STATE_GIVEN_DETAILS.compareTo((Integer)session.getAttribute(SESSION_EVENT_STATE)) == 0) {
+			response = newTellResponse(events[lastRead].getTitle() + " costs: " + events[lastRead].getPrice() + "; " + events[lastRead].getSite() + "; I have sent a card to your alexa app with a link to purchase.", false);
+			session.removeAttribute(SESSION_EVENT_STATE);
+		}
+		else {
+			response = newAskResponse("I haven't listed off any events details", false, "Try asking about a specific event first", false);
+		}
+		response.setCard(lastReadCard);
+
+		storedResponse = response;
+		return response;
 	}
 
 
 
-
-private SpeechletResponse handleWhatDateIntent(IntentRequest intentReq, Session session) {
+	/**
+	 * Intent: what day is the event occuring?
+	 * responds with the date of the event
+	 */
+	private SpeechletResponse handleWhatDateIntent(IntentRequest intentReq, Session session) {
 		Intent intent = intentReq.getIntent();
 		Map<String, Slot> slots = intent.getSlots();
 		Slot eventNameSlot = slots.get("specificEvent");
@@ -375,18 +415,25 @@ private SpeechletResponse handleWhatDateIntent(IntentRequest intentReq, Session 
 		card.setTitle(events[eventMatchNum].getTitle());
 		card.setContent("The event is on: "+ events[eventMatchNum].getTime());
 		
-		if(eventMatch){
+		if (eventMatch) {
 			response = newAskResponse(events[eventMatchNum].getTitle() + " is on: " + events[eventMatchNum].getTime(), false, "You can ask to buy tickets if you would like.", false);
 			session.setAttribute(SESSION_EVENT_STATE, STATE_GIVEN_DETAILS);
-		}else{
+		}
+		else {
 			response = newAskResponse("Sorry, I didn't get that.", false, "Please rephrase your question.", false);
 		}
 		response.setCard(card);
+
+		storedResponse = response;
 		return response;
 
 
 	}
 
+	/**
+	 * Intent: when is the event occuring?
+	 * responds with the time of the event
+	 */
 	private SpeechletResponse handleWhatTimeIntent(IntentRequest intentReq, Session session) {
 		Intent intent = intentReq.getIntent();
 		Map<String, Slot> slots = intent.getSlots();
@@ -418,11 +465,17 @@ private SpeechletResponse handleWhatDateIntent(IntentRequest intentReq, Session 
 			response = newAskResponse("Sorry, I didn't get that.", false, "Please rephrase your question", false);
 		}
 		response.setCard(card);
+
+		storedResponse = response;
 		return response;
 
 
 	}
 
+	/**
+	 * Intent: event cost
+	 * provides the user with the lowest price for tickets to the event
+     */
 	private SpeechletResponse handleHowMuchIntent(IntentRequest intentReq, Session session) {
 		Intent intent = intentReq.getIntent();
 		Map<String, Slot> slots = intent.getSlots();
@@ -442,32 +495,72 @@ private SpeechletResponse handleWhatDateIntent(IntentRequest intentReq, Session 
 					break; 
 				}
 		}
-		if(eventMatch){
+		if (eventMatch) {
 			response = newAskResponse(events[eventMatchNum].getTitle() + " costs: " + events[eventMatchNum].getPrice() + " and up.", false, "You can ask to buy tickets if you would like.", false);
 			session.setAttribute(SESSION_EVENT_STATE, STATE_GIVEN_DETAILS);
-		}else{
+		}
+		else {
 			response = newAskResponse("Sorry, I didn't get that.", false, "Please rephrase your question.", false);
 		}
+
+		storedResponse = response;
 		return response;
 
 
 	}
+
+	/**
+	 * Intent: Time of the last event read
+	 * Provides the time
+     */
 	private SpeechletResponse handleKnownEventWhatTimeIntent(IntentRequest intentReq, Session session) {
-			SpeechletResponse response = null;
-			response = newAskResponse(events[lastRead].getTitle() + " is on: " + events[lastRead].getTime(),false, "What else would you like to know?", false);
-			return response;
-	}
-	private SpeechletResponse handleKnownEventHowMuchIntent(IntentRequest intentReq, Session session) {
-			SpeechletResponse response = null;
-			response = newAskResponse(events[lastRead].getTitle() + " costs: " + events[lastRead].getPrice() + " and up.",false, "What else would you like to know?", false);
-			return response;
-	}
-	private SpeechletResponse handleKnownEventWhatDateIntent(IntentRequest intentReq, Session session) {
-			SpeechletResponse response = null;
+		SpeechletResponse response = null;
+		if (session.getAttribute(SESSION_EVENT_STATE) != null
+				&& STATE_GIVEN_DETAILS.compareTo((Integer)session.getAttribute(SESSION_EVENT_STATE)) == 0) {
 			response = newAskResponse(events[lastRead].getTitle() + " is on: " + events[lastRead].getTime(), false, "What else would you like to know?", false);
-			return response;
+		}
+		else {
+			response = newAskResponse("I haven't listed off any events details", false, "Try asking about a specific event first", false);
+		}
+		storedResponse = response;
+		return response;
 	}
 
+	/**
+	 * Intent: cost of the last event read
+	 * Provides the cost
+     */
+	private SpeechletResponse handleKnownEventHowMuchIntent(IntentRequest intentReq, Session session) {
+		SpeechletResponse response = null;
+		if (session.getAttribute(SESSION_EVENT_STATE) != null
+				&& STATE_GIVEN_DETAILS.compareTo((Integer)session.getAttribute(SESSION_EVENT_STATE)) == 0) {
+			response = newAskResponse(events[lastRead].getTitle() + " costs: " + events[lastRead].getPrice() + " and up.", false, "What else would you like to know?", false);
+		}
+		else {
+			response = newAskResponse("I haven't listed off any events details", false, "Try asking about a specific event first", false);
+		}
+
+		storedResponse = response;
+		return response;
+	}
+
+	/**
+	 * Intent: Date of the last event read
+	 * provides the date
+     */
+	private SpeechletResponse handleKnownEventWhatDateIntent(IntentRequest intentReq, Session session) {
+		SpeechletResponse response = null;
+		if (session.getAttribute(SESSION_EVENT_STATE) != null
+				&& STATE_GIVEN_DETAILS.compareTo((Integer)session.getAttribute(SESSION_EVENT_STATE)) == 0) {
+			response = newAskResponse(events[lastRead].getTitle() + " is on: " + events[lastRead].getTime(), false, "What else would you like to know?", false);
+		}
+		else {
+			response = newAskResponse("I haven't listed off any events details", false, "Try asking about a specific event first", false);
+		}
+
+		storedResponse = response;
+		return response;
+	}
 
 }
 

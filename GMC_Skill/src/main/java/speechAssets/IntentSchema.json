@@ -7,7 +7,49 @@
       "intent": "MoreIntent"
     },
     {
+      "intent": "KnownEventTicketsIntent"
+    },
+    {
       "intent": "GenericUpcomingEventsIntent"
+    },
+    {
+      "intent": "HowMuchIntent",
+      "slots": [
+        {
+          "name": "specificEvent",
+          "type": "EVENT_NAME"
+        }
+      ]
+    },
+    {
+      "intent": "WhatDateIntent",
+      "slots": [
+        {
+          "name": "specificEvent",
+          "type": "EVENT_NAME"
+        }
+      ]
+    },
+    {
+      "intent": "WhatTimeIntent",
+      "slots": [
+        {
+          "name": "specificEvent",
+          "type": "EVENT_NAME"
+        }
+      ]
+    },
+    {
+      "intent": "KnownEventHowMuchIntent"
+    },
+    {
+      "intent": "KnownEventWhatDateIntent"
+    },
+    {
+      "intent": "KnownEventWhatTimeIntent"
+    },
+    {
+      "intent": "LastEventPurchaseIntent"
     },
     {
       "intent": "SpecificEventDetailsIntent",
@@ -45,6 +87,9 @@
     },
     {
       "intent": "AMAZON.CancelIntent"
+    },
+    {
+      "intent": "AMAZON.RepeatIntent"
     },
     {
       "intent": "DateSpecifiedEventsIntent",
