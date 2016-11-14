@@ -1,6 +1,8 @@
 package com.squad.voice.skill;
 
 import com.amazon.speech.slu.Intent;
+
+import java.util.concurrent.ThreadLocalRandom;
 import com.amazon.speech.slu.Slot;
 import com.amazon.speech.ui.*;
 import com.amazon.speech.speechlet.IntentRequest;
@@ -28,6 +30,8 @@ public class GMCConversation extends Conversation {
 	private final static String INTENT_KNOWN_EVENT_HOW_MUCH = "KnownEventHowMuchIntent";
 	private final static String INTENT_KNOWN_EVENT_WHAT_DATE = "KnownEventWhatDateIntent";
 	private final static String INTENT_KNOWN_EVENT_WHAT_TIME = "KnownEventWhatTimeIntent";
+	private final static String INTENT_KEYWORD = "handleKeywordIntent";
+
 
 	private final static String INTENT_YES = "AMAZON.YesIntent";
 	private final static String INTENT_NO = "AMAZON.NoIntent";
@@ -35,6 +39,7 @@ public class GMCConversation extends Conversation {
 	private final static String INTENT_STOP = "AMAZON.StopIntent";
 	private final static String INTENT_REPEAT = "AMAZON.RepeatIntent";
 	private final static String INTENT_CANCEL = "AMAZON.CancelIntent";
+
 
 
 	// Slots
@@ -53,6 +58,9 @@ public class GMCConversation extends Conversation {
 
 	// Parse the RSS feed into the array of events
 	public Event[] events = new Event().parseRSSFeed();
+	public static String[] eventResponses = {"A few events after that are: ",
+			"Some of the next events coming up are: ",
+			"Following those events are: " };
 
 	// Globals
 	public int lastRead = 0;
@@ -70,6 +78,8 @@ public class GMCConversation extends Conversation {
 		supportedIntentNames.add(INTENT_MORE_EVENTS);
 		supportedIntentNames.add(INTENT_SPECIFIC_EVENT_PURCHASE);
 		supportedIntentNames.add(INTENT_LAST_EVENT_PURCHASE);
+		supportedIntentNames.add(INTENT_KEYWORD);
+
 
 		supportedIntentNames.add(INTENT_HOW_MUCH);
 		supportedIntentNames.add(INTENT_WHAT_DATE);
@@ -212,10 +222,19 @@ public class GMCConversation extends Conversation {
 			storedResponse = response;
 			return response;
 		}
-		response = newAskResponse("The next three events are: " + events[lastRead].getTitle() + 
+		String randomResp;
+		if (lastRead > 0){
+			int rand = ThreadLocalRandom.current().nextInt(0, eventResponses.length);
+			randomResp = eventResponses[rand];
+
+		}
+		else{
+			randomResp = "The next three events are: ";
+		}
+		response = newAskResponse(randomResp + events[lastRead].getTitle() +
 				": " + events[lastRead += 1].getTitle() + ": and " + events[lastRead += 1].getTitle() + "; You can ask for information about a specific event, or for more upcoming events",false, "Try asking for more events.",false);
-		lastRead++;
 		session.setAttribute(SESSION_EVENT_STATE, STATE_GIVEN_EVENTS);
+		lastRead++;
 
 		storedResponse = response;
 		return response;
@@ -243,7 +262,7 @@ public class GMCConversation extends Conversation {
 		//Updated so it lists all the events on a date if there is more than 1
 		String events_str = "";
 		int num_events = 0;
-		for(int i = 0; i < events[0].size(); i++){
+		for(int i = 0; i < events.length; i++){
 				if((events[i].getDate()).contains(date) ){
 					eventOnDate = true;
 					//eventDateNum = i;
@@ -263,25 +282,27 @@ public class GMCConversation extends Conversation {
 
 		}
 		//Get rid of the last comma
-		StringBuilder b = new StringBuilder(events_str);
-		b.replace(events_str.lastIndexOf(","), events_str.lastIndexOf(",") + 1, "");
-		events_str = b.toString();
-		
-		//Create a card to send events on that date to their phone
-		SimpleCard card = new SimpleCard();
-		card.setTitle("Events on " + date);
-		card.setContent(events_str);
+
 		
 		int temp = eventDateNum + 1;
 		if(eventOnDate){
+			StringBuilder b = new StringBuilder(events_str);
+			b.replace(events_str.lastIndexOf(","), events_str.lastIndexOf(",") + 1, "");
+			events_str = b.toString();
+
+			//Create a card to send events on that date to their phone
+			SimpleCard card = new SimpleCard();
+			card.setTitle("Events on " + date);
+			card.setContent(events_str);
+
 			response = newAskResponse("There is an event on that date! " + events_str, false, "You can ask to reserve tickets for this event, or for more details", false);
+			response.setCard(card);
 		}
 		else{
 			response = newAskResponse("Sorry, there are no events happening on that date.", false, "", false);
 		}
 
 		session.setAttribute(SESSION_EVENT_STATE, STATE_GIVEN_EVENTS);
-		response.setCard(card);
 
 		storedResponse = response;
 		return response;
