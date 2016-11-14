@@ -35,7 +35,6 @@ public class GMCConversation extends Conversation {
 	private final static String INTENT_STOP = "AMAZON.StopIntent";
 	private final static String INTENT_REPEAT = "AMAZON.RepeatIntent";
 	private final static String INTENT_CANCEL = "AMAZON.CancelIntent";
-	//private final static String INTENT_END_CONVERSATION = "EndConvoIntent";
 
 
 	// Slots
@@ -117,7 +116,6 @@ public class GMCConversation extends Conversation {
 		}
 		else if (INTENT_WHAT_TIME.equals(intentName)){
 			response = handleWhatTimeIntent(intentReq, session);
-
 		}
 		else if (INTENT_WHAT_DATE.equals(intentName)){
 			response = handleWhatDateIntent(intentReq, session);
@@ -127,7 +125,6 @@ public class GMCConversation extends Conversation {
 		}
 		else if (INTENT_KNOWN_EVENT_WHAT_TIME.equals(intentName)){
 			response = handleKnownEventWhatTimeIntent(intentReq, session);
-
 		}
 		else if (INTENT_KNOWN_EVENT_WHAT_DATE.equals(intentName)){
 			response = handleKnownEventWhatDateIntent(intentReq, session);
@@ -196,22 +193,27 @@ public class GMCConversation extends Conversation {
 	private SpeechletResponse handleGenericUpcomingIntent(IntentRequest intentReq, Session session) {
 		SpeechletResponse response;
 		if (lastRead >= events[0].size()){
-			response = newAskResponse("I'm sorry, there are no more events listed.", false, "You can also ask about a specific event.", false);
+			response = newTellResponse("I'm sorry, there are no more events listed.", false);
 			lastRead++;
+			session.removeAttribute(SESSION_EVENT_STATE);
 			return response;
 		}
 		else if (lastRead >= events[0].size()-1){
 			response = newAskResponse("The next event is: " + events[lastRead].getTitle(), false, "You can also ask about a specific event.", false);
+			session.setAttribute(SESSION_EVENT_STATE, STATE_GIVEN_EVENTS);
+			storedResponse = response;
 			lastRead++;
 			return response;
 		}
 		else if (lastRead >= events[0].size()-2){
 			response = newAskResponse("The next two events are: " + events[lastRead].getTitle() + " and " + events[++lastRead].getTitle(), false,"You can also ask about a specific event.",false);
 			lastRead++;
+			session.setAttribute(SESSION_EVENT_STATE, STATE_GIVEN_EVENTS);
+			storedResponse = response;
 			return response;
 		}
 		response = newAskResponse("The next three events are: " + events[lastRead].getTitle() + 
-				": " + events[lastRead += 1].getTitle() + ": and " + events[lastRead += 1].getTitle() + "; Would you like to hear about a specific event, or would you like to hear about more events?",false, "Try asking for more events.",false);
+				": " + events[lastRead += 1].getTitle() + ": and " + events[lastRead += 1].getTitle() + "; You can ask for information about a specific event, or for more upcoming events",false, "Try asking for more events.",false);
 		lastRead++;
 		session.setAttribute(SESSION_EVENT_STATE, STATE_GIVEN_EVENTS);
 
@@ -320,7 +322,7 @@ public class GMCConversation extends Conversation {
 			session.setAttribute(SESSION_EVENT_STATE, STATE_GIVEN_DETAILS);
 		}
 		else {
-			response = newAskResponse("I'm sorry, could you please repeat that.", false, "", false);
+			response = newAskResponse("I'm sorry, could you please repeat that.", false, "I'm sorry, could you please repeat that.", false);
 		}
 		lastReadCard = card;
 
@@ -352,7 +354,15 @@ public class GMCConversation extends Conversation {
 			}
 		}
 		if (eventMatch) {
-			response = newTellResponse(events[eventMatchNum].getTitle() + " costs: " + events[eventMatchNum].getPrice() + "; I have sent a card to your alexa app with a link to purchase.", false);
+			response = newTellResponse(events[eventMatchNum].getTitle() + " costs: " + events[eventMatchNum].getPrice() + "; I have sent a card to your alexa app with a information for purchase.", false);
+
+			SimpleCard card = new SimpleCard();
+			card.setTitle(events[eventMatchNum].getTitle());
+			String content = "Date(s): " + events[eventMatchNum].getTime();
+			content += "\nCost: " + events[eventMatchNum].getPrice();
+			card.setContent(content);
+			response.setCard(card);
+
 			session.removeAttribute(SESSION_EVENT_STATE);
 		}
 		else {
@@ -373,7 +383,7 @@ public class GMCConversation extends Conversation {
 		SpeechletResponse response = null;
 		if (session.getAttribute(SESSION_EVENT_STATE) != null
 				&& STATE_GIVEN_DETAILS.compareTo((Integer)session.getAttribute(SESSION_EVENT_STATE)) == 0) {
-			response = newTellResponse(events[lastRead].getTitle() + " costs: " + events[lastRead].getPrice() + "; " + events[lastRead].getSite() + "; I have sent a card to your alexa app with a link to purchase.", false);
+			response = newTellResponse(events[lastRead].getTitle() + " costs: " + events[lastRead].getPrice() + "; " + events[lastRead].getSite() + "; I have sent a card to your alexa app with a information regarding purchase.", false);
 			session.removeAttribute(SESSION_EVENT_STATE);
 		}
 		else {
@@ -388,7 +398,7 @@ public class GMCConversation extends Conversation {
 
 
 	/**
-	 * Intent: what day is the event occuring?
+	 * Intent: what day is the event occurring?
 	 * responds with the date of the event
 	 */
 	private SpeechletResponse handleWhatDateIntent(IntentRequest intentReq, Session session) {
@@ -431,7 +441,7 @@ public class GMCConversation extends Conversation {
 	}
 
 	/**
-	 * Intent: when is the event occuring?
+	 * Intent: when is the event occurring?
 	 * responds with the time of the event
 	 */
 	private SpeechletResponse handleWhatTimeIntent(IntentRequest intentReq, Session session) {
@@ -496,7 +506,7 @@ public class GMCConversation extends Conversation {
 				}
 		}
 		if (eventMatch) {
-			response = newAskResponse(events[eventMatchNum].getTitle() + " costs: " + events[eventMatchNum].getPrice() + " and up.", false, "You can ask to buy tickets if you would like.", false);
+			response = newAskResponse(events[eventMatchNum].getTitle() + " costs: " + events[eventMatchNum].getPrice(), false, "You can ask to buy tickets if you would like.", false);
 			session.setAttribute(SESSION_EVENT_STATE, STATE_GIVEN_DETAILS);
 		}
 		else {
