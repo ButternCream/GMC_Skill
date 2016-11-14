@@ -10,7 +10,7 @@ import com.amazonaws.services.dynamodbv2.xspec.S;
 import com.squad.voice.model.base.Conversation;
 import java.util.Map;
 import com.squad.voice.skill.Event;
-
+import java.util.concurrent.ThreadLocalRandom;
 
 public class GMCConversation extends Conversation {
 	// Intent names
@@ -53,7 +53,11 @@ public class GMCConversation extends Conversation {
 
 	// Parse the RSS feed into the array of events
 	public Event[] events = new Event().parseRSSFeed();
+	public static String[] eventResponses = {"A few events after that are: ", 
+			"Some of the next events coming up are: ", 
+			"Following those events are: " };  
 
+	public static final String purchaseURL = "http://25livepub.collegenet.com/calendars/highlighted_event";
 	// Globals
 	public int lastRead = 0;
 	SpeechletResponse storedResponse = newAskResponse("I haven't said anything yet", false, "You can ask for events occurring on a specific date", false);
@@ -212,7 +216,16 @@ public class GMCConversation extends Conversation {
 			storedResponse = response;
 			return response;
 		}
-		response = newAskResponse("The next three events are: " + events[lastRead].getTitle() + 
+		String randomResp;
+		if (lastRead > 0){
+			int rand = ThreadLocalRandom.current().nextInt(0, eventResponses.length);
+			randomResp = eventResponses[rand]; 
+			
+		}
+		else{
+			randomResp = "The next three events are: ";
+		}
+		response = newAskResponse(randomResp + events[lastRead].getTitle() + 
 				": " + events[lastRead += 1].getTitle() + ": and " + events[lastRead += 1].getTitle() + "; You can ask for information about a specific event, or for more upcoming events",false, "Try asking for more events.",false);
 		lastRead++;
 		session.setAttribute(SESSION_EVENT_STATE, STATE_GIVEN_EVENTS);
@@ -359,7 +372,7 @@ public class GMCConversation extends Conversation {
 			SimpleCard card = new SimpleCard();
 			card.setTitle(events[eventMatchNum].getTitle());
 			String content = "Date(s): " + events[eventMatchNum].getTime();
-			content += "\nCost: " + events[eventMatchNum].getPrice();
+			content += "\nCost: " + events[eventMatchNum].getPrice() + "\n\n" + purchaseURL;
 			card.setContent(content);
 			response.setCard(card);
 
