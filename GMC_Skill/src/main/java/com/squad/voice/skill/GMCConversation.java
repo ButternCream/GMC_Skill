@@ -58,15 +58,9 @@ public class GMCConversation extends Conversation {
 
 	// Parse the RSS feed into the array of events
 	public Event[] events = new Event().parseRSSFeed();
-<<<<<<< HEAD
-	public static String[] eventResponses = {"A few events after that are: ", 
-			"Some of the next events coming up are: ", 
-			"Following those events are: " };  
-=======
 	public static String[] eventResponses = {"A few events after that are: ",
 			"Some of the next events coming up are: ",
 			"Following those events are: " };
->>>>>>> dc771def0c33a26e6ef8bcc6b23f48b0cd346820
 
 	public static final String purchaseURL = "http://25livepub.collegenet.com/calendars/highlighted_event";
 	// Globals
@@ -232,22 +226,15 @@ public class GMCConversation extends Conversation {
 		String randomResp;
 		if (lastRead > 0){
 			int rand = ThreadLocalRandom.current().nextInt(0, eventResponses.length);
-<<<<<<< HEAD
-			randomResp = eventResponses[rand]; 
+			randomResp = eventResponses[rand];
 			
-=======
 			randomResp = eventResponses[rand];
 
->>>>>>> dc771def0c33a26e6ef8bcc6b23f48b0cd346820
 		}
 		else{
 			randomResp = "The next three events are: ";
 		}
-<<<<<<< HEAD
-		response = newAskResponse(randomResp + events[lastRead].getTitle() + 
-=======
 		response = newAskResponse(randomResp + events[lastRead].getTitle() +
->>>>>>> dc771def0c33a26e6ef8bcc6b23f48b0cd346820
 				": " + events[lastRead += 1].getTitle() + ": and " + events[lastRead += 1].getTitle() + "; You can ask for information about a specific event, or for more upcoming events",false, "Try asking for more events.",false);
 		session.setAttribute(SESSION_EVENT_STATE, STATE_GIVEN_EVENTS);
 		lastRead++;
@@ -421,12 +408,19 @@ public class GMCConversation extends Conversation {
 		if (session.getAttribute(SESSION_EVENT_STATE) != null
 				&& STATE_GIVEN_DETAILS.compareTo((Integer)session.getAttribute(SESSION_EVENT_STATE)) == 0) {
 			response = newTellResponse(events[lastRead].getTitle() + " costs: " + events[lastRead].getPrice() + "; " + events[lastRead].getSite() + "; I have sent a card to your alexa app with a information regarding purchase.", false);
+
+			SimpleCard card = new SimpleCard();
+			card.setTitle(events[lastRead].getTitle());
+			String content = "Date(s): " + events[lastRead].getTime();
+			content += "\nCost: " + events[lastRead].getPrice() + "\n\n" + purchaseURL;
+			card.setContent(content);
+			response.setCard(card);
+
 			session.removeAttribute(SESSION_EVENT_STATE);
 		}
 		else {
 			response = newAskResponse("I haven't listed off any events details", false, "Try asking about a specific event first", false);
 		}
-		response.setCard(lastReadCard);
 
 		storedResponse = response;
 		return response;
