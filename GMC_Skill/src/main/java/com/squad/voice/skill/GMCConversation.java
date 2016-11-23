@@ -19,6 +19,7 @@ public class GMCConversation extends Conversation {
 	private final static String INTENT_START = "StartGMCIntent";
 	private final static String INTENT_UPCOMING_GMC = "GenericUpcomingEventsIntent";
 	private final static String INTENT_DATE_GMC = "DateSpecifiedEventsIntent";
+	private final static String INTENT_SEARCH_DETAIL_GMC = "DetailSpecifiedEventsIntent";
 	private final static String INTENT_SPECIFIC_EVENT_DETAILS = "SpecificEventDetailsIntent";
 	private final static String INTENT_MORE_EVENTS = "MoreIntent";
 	private final static String INTENT_SPECIFIC_EVENT_PURCHASE = "SpecificEventPurchaseIntent";
@@ -80,6 +81,9 @@ public class GMCConversation extends Conversation {
 		supportedIntentNames.add(INTENT_SPECIFIC_EVENT_PURCHASE);
 		supportedIntentNames.add(INTENT_LAST_EVENT_PURCHASE);
 		supportedIntentNames.add(INTENT_KEYWORD);
+		supportedIntentNames.add(INTENT_SEARCH_DETAIL_GMC);
+
+		
 
 
 		supportedIntentNames.add(INTENT_HOW_MUCH);
@@ -148,6 +152,9 @@ public class GMCConversation extends Conversation {
 		}
 		else if (INTENT_REPEAT.equals(intentName)) {
 			response = handleRepeatIntent(intentReq, session);
+		}
+		else if (INTENT_SEARCH_DETAIL_GMC.equals(intentName)) {
+			response = handleSearchDetailIntent(intentReq, session);
 		}
 		else {
 			response = newTellResponse("Sorry, I didn't get that.", false);
@@ -229,13 +236,16 @@ public class GMCConversation extends Conversation {
 			randomResp = eventResponses[rand];
 			
 			randomResp = eventResponses[rand];
-
+			response = newAskResponse(randomResp + events[lastRead].getTitle() +
+				": " + events[lastRead += 1].getTitle() + ": and " + events[lastRead += 1].getTitle() + "You can ask for information about a specific event, or for more upcoming events" ,false, "You can ask for information about a specific event, or for more upcoming events. You can also ask for help.",false);
+		
 		}
 		else{
 			randomResp = "The next three events are: ";
+			response = newAskResponse(randomResp + events[lastRead].getTitle() +
+				": " + events[lastRead += 1].getTitle() + ": and " + events[lastRead += 1].getTitle() ,false, "You can ask for information about a specific event, or for more upcoming events",false);
+		
 		}
-		response = newAskResponse(randomResp + events[lastRead].getTitle() +
-				": " + events[lastRead += 1].getTitle() + ": and " + events[lastRead += 1].getTitle() + "; You can ask for information about a specific event, or for more upcoming events",false, "Try asking for more events.",false);
 		session.setAttribute(SESSION_EVENT_STATE, STATE_GIVEN_EVENTS);
 		lastRead++;
 
@@ -257,34 +267,19 @@ public class GMCConversation extends Conversation {
 		SpeechletResponse response = null;
 		boolean eventOnDate = false; 
 		int eventDateNum = 0;
-		//String scrubbedAlexaDate = date.replace("-", "");
-		//int alexaDate = Integer.parseInt(scrubbedAlexaDate);
-		//int prev = 0;
-		//int next = 0;
-		
-		//Updated so it lists all the events on a date if there is more than 1
 		String events_str = "";
 		int num_events = 0;
-		for(int i = 0; i < events.length; i++){
+		if(date.equals("")){
+			 response = newAskResponse("Sorry I couldn't understand that date. PLease try again.", false, "You can also ask for something else, like help.", false);
+			 return response;
+		}
+		for(int i = 0; i < events[0].size(); i++){
 				if((events[i].getDate()).contains(date) ){
 					eventOnDate = true;
 					//eventDateNum = i;
 					events_str += events[i].getTitle() + ", ";
 				}
-				//I'd like to do something like this, but the events[i].date would need to be in an array.
-				/*String scrubbedEventDate = events[i].getDate().replace("-", "");
-				int lastRead = eventDateNum; 
-				int eventsDate = Integer.parseInt(scrubbedEventDate);
-			
-				if(eventsDate > alexaDate){
-						prev = i - 1; 
-						next = i;
-						break;
-					}
-				*/
-
 		}
-		//Get rid of the last comma
 
 		
 		int temp = eventDateNum + 1;
@@ -298,11 +293,11 @@ public class GMCConversation extends Conversation {
 			card.setTitle("Events on " + date);
 			card.setContent(events_str);
 
-			response = newAskResponse("There is an event on that date! " + events_str, false, "You can ask to reserve tickets for this event, or for more details", false);
+			response = newAskResponse("There is an event on " + date + "! " + events_str, false, "You can ask to reserve tickets for this event, or for more details", false);
 			response.setCard(card);
 		}
 		else{
-			response = newAskResponse("Sorry, there are no events happening on that date.", false, "", false);
+			response = newAskResponse("Sorry, there are no events happening on " + date, false, "You can ask about upcoming events or about a specific event.", false);
 		}
 
 		session.setAttribute(SESSION_EVENT_STATE, STATE_GIVEN_EVENTS);
@@ -312,6 +307,55 @@ public class GMCConversation extends Conversation {
 
 	}
 
+
+
+		private SpeechletResponse handleSearchDetailIntent(IntentRequest intentReq, Session session) {
+		Intent intent = intentReq.getIntent();
+		Map<String, Slot> slots = intent.getSlots();
+		Slot detailSlot = slots.get("detailSpecified");
+		String detail = detailSlot.getValue();
+		SpeechletResponse response = null;
+		boolean eventWithDetail = false; 
+		int eventDetailNum = 0;
+		String events_str = "";
+		int num_events = 0;
+		if(detail.equals("")){
+			response = newAskResponse("Sorry I couldn't understand that word. PLease try again.", false, "You can also ask for something else, like help.", false);
+			return response;
+		}
+		for(int i = 0; i < events[0].size(); i++){
+				if((events[i].getDesc()).toLowerCase().contains(detail.toLowerCase()) ){
+					eventWithDetail = true;
+					//eventDateNum = i;
+					events_str += events[i].getTitle() + ", ";
+				}
+		}
+
+		
+		int temp = eventDetailNum + 1;
+		if(eventWithDetail){
+			StringBuilder b = new StringBuilder(events_str);
+			b.replace(events_str.lastIndexOf(","), events_str.lastIndexOf(",") + 1, "");
+			events_str = b.toString();
+
+			//Create a card to send events on that date to their phone
+			SimpleCard card = new SimpleCard();
+			card.setTitle("Events with " + detail);
+			card.setContent(events_str);
+
+			response = newAskResponse("There is an event with " + detail + "! " + events_str, false, "You can ask to reserve tickets for this event, or for more details", false);
+			response.setCard(card);
+		}
+		else{
+			response = newAskResponse("Sorry, there are no event with " + detail, false, "You can ask about upcoming events or about a specific event.", false);
+		}
+
+		session.setAttribute(SESSION_EVENT_STATE, STATE_GIVEN_EVENTS);
+
+		storedResponse = response;
+		return response;
+
+	}
 	/**
 	 * Intent: Request for information on a specific event
 	 * Responds to the user with the description, cost, and time of the event

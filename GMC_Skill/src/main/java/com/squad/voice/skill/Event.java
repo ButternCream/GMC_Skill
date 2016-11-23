@@ -9,11 +9,6 @@ import org.jsoup.Jsoup;
 
 public class Event{
 	
-//	public static void main(String[] args) {
-//	 	System.out.println("test");
-//	 	Event e = new Event();
-//	 	System.out.println(e.getFirst3Events());
-//	}
 	private int size = 0;
 	private String eventName, date, startTime, cost, category, description, website;
 	private Event[] events;
@@ -103,7 +98,6 @@ public class Event{
 	
 	public String cleanDescription(String desc){
 		Document doc = buildXMLDoc(url);
-		//return Jsoup.parse(doc.getElementsByTagName("description").item(index).getTextContent()).text();
 		return Jsoup.parse(desc).text();
 	}
 
@@ -111,7 +105,6 @@ public class Event{
     	
 	   	Document doc = buildXMLDoc(url);
 	   	size = doc.getElementsByTagName("item").getLength();
-	    //NodeList eventList = doc.getElementsByTagName("item");
 	    events = new Event[size];
 	    int mod = 0;
 	    String eventDesc, eventTitle, eventPrice, eventDate, eventTime, eventSite;

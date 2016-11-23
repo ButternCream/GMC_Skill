@@ -1,0 +1,6 @@
+com/squad/voice/handler/TemplateSpeechletRequestStreamHandler.class
+com/squad/voice/speechlet/TemplateBaseSkillSpeechlet.class
+com/squad/voice/skill/GMCConversation.class
+com/squad/voice/model/interfaces/ConversationInterface.class
+com/squad/voice/model/base/Conversation.class
+com/squad/voice/skill/Event.class
