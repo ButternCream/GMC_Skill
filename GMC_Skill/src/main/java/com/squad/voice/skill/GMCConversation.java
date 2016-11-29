@@ -210,6 +210,7 @@ public class GMCConversation extends Conversation {
      */
 	private SpeechletResponse handleGenericUpcomingIntent(IntentRequest intentReq, Session session) {
 		SpeechletResponse response;
+
 		if (lastRead >= events[0].size()){
 			response = newTellResponse("I'm sorry, there are no more events listed.", false);
 			lastRead++;
@@ -217,33 +218,79 @@ public class GMCConversation extends Conversation {
 			return response;
 		}
 		else if (lastRead >= events[0].size()-1){
-			response = newAskResponse("The next event is: " + events[lastRead].getTitle(), false, "You can also ask about a specific event.", false);
+			String eventsDate = events[lastRead].getDate();
+			eventsDate.replace("2016-", "");
+				if(eventsDate.contains(",")){
+					String temp = eventsDate.substring(0, eventsDate.indexOf(","));
+					String temp2 = eventsDate.substring(eventsDate.lastIndexOf(",") + 1, eventsDate.length());
+					eventsDate = "; On select dates, " + temp + " through " + temp2 + ". ";
+				}
+				else{
+					eventsDate = " on " + eventsDate + ". ";
+				}
+			response = newAskResponse("The next event is: " + events[lastRead].getTitle() + eventsDate, false, "You can also ask about a specific event.", false);
 			session.setAttribute(SESSION_EVENT_STATE, STATE_GIVEN_EVENTS);
 			storedResponse = response;
 			lastRead++;
 			return response;
 		}
 		else if (lastRead >= events[0].size()-2){
-			response = newAskResponse("The next two events are: " + events[lastRead].getTitle() + " and " + events[++lastRead].getTitle(), false,"You can also ask about a specific event.",false);
+			String[] eventsDate = 
+						{
+							events[lastRead].getDate(),
+						 	events[lastRead+1].getDate(),
+						};
+			for(int i = 0; i < 2; i++){
+				eventsDate[i].replace("2016-", "");
+
+				if(eventsDate[i].contains(",")){
+					String temp = eventsDate[i].substring(0, eventsDate[i].indexOf(","));
+					String temp2 = eventsDate[i].substring(eventsDate[i].lastIndexOf(",") + 1, eventsDate[i].length());
+					eventsDate[i] = "; On select dates, " + temp + " through " + temp2 + ". ";
+				}
+				else{
+					eventsDate[i] = " on " + eventsDate[i] + ". ";
+				}
+			}
+			response = newAskResponse("The next two events are: " + events[lastRead].getTitle() + eventsDate[0] + " and " + events[++lastRead].getTitle() + eventsDate[1], false,"You can also ask about a specific event.",false);
 			lastRead++;
 			session.setAttribute(SESSION_EVENT_STATE, STATE_GIVEN_EVENTS);
 			storedResponse = response;
 			return response;
 		}
 		String randomResp;
+		String[] eventsDate = 
+						{
+							events[lastRead].getDate(),
+						 	events[lastRead+1].getDate(),
+						 	events[lastRead+2].getDate()
+						};
+		for(int i = 0; i < 3; i++){
+			eventsDate[i].replace("2016-", "");
+			if(eventsDate[i].contains(",")){
+				String temp = eventsDate[i].substring(0, eventsDate[i].indexOf(","));
+				String temp2 = eventsDate[i].substring(eventsDate[i].lastIndexOf(",") + 1, eventsDate[i].length());
+				eventsDate[i] = "; On select dates, " + temp + " through " + temp2 + ". ";
+			}
+			else{
+				eventsDate[i] = " on " + eventsDate[i] + ". ";
+			}
+		}
+
 		if (lastRead > 0){
 			int rand = ThreadLocalRandom.current().nextInt(0, eventResponses.length);
 			randomResp = eventResponses[rand];
 			
 			randomResp = eventResponses[rand];
-			response = newAskResponse(randomResp + events[lastRead].getTitle() +
-				": " + events[lastRead += 1].getTitle() + ": and " + events[lastRead += 1].getTitle() + "You can ask for information about a specific event, or for more upcoming events" ,false, "You can ask for information about a specific event, or for more upcoming events. You can also ask for help.",false);
+			response = newAskResponse(randomResp + events[0].getTitle() + eventsDate[0] +
+				": " + events[lastRead += 1].getTitle() + eventsDate[1] + ": and " + events[lastRead += 1].getTitle() + eventsDate[2] + " You can ask for information about a specific event, or for more upcoming events" ,false, "You can ask for information about a specific event, or for more upcoming events. You can also ask for help.",false);
 		
+				
 		}
 		else{
 			randomResp = "The next three events are: ";
-			response = newAskResponse(randomResp + events[lastRead].getTitle() +
-				": " + events[lastRead += 1].getTitle() + ": and " + events[lastRead += 1].getTitle() ,false, "You can ask for information about a specific event, or for more upcoming events",false);
+			response = newAskResponse(randomResp + events[lastRead].getTitle() + eventsDate[0] +
+				": " + events[lastRead += 1].getTitle() + eventsDate[1] + ": and " + events[lastRead += 1].getTitle() + eventsDate[2],false, "You can ask for information about a specific event, or for more upcoming events",false);
 		
 		}
 		session.setAttribute(SESSION_EVENT_STATE, STATE_GIVEN_EVENTS);
@@ -495,19 +542,22 @@ public class GMCConversation extends Conversation {
 					break; 
 				}
 		}
-		//Create card to send date & time
-		SimpleCard card = new SimpleCard();
-		card.setTitle(events[eventMatchNum].getTitle());
-		card.setContent("The event is on: "+ events[eventMatchNum].getTime());
+		
 		
 		if (eventMatch) {
+			//Create card to send date & time
+			SimpleCard card = new SimpleCard();
+			card.setTitle(events[eventMatchNum].getTitle());
+			card.setContent("The event is on: "+ events[eventMatchNum].getTime());
+			response.setCard(card);
+
 			response = newAskResponse(events[eventMatchNum].getTitle() + " is on: " + events[eventMatchNum].getTime(), false, "You can ask to buy tickets if you would like.", false);
 			session.setAttribute(SESSION_EVENT_STATE, STATE_GIVEN_DETAILS);
 		}
 		else {
 			response = newAskResponse("Sorry, I didn't get that.", false, "Please rephrase your question.", false);
 		}
-		response.setCard(card);
+		
 
 		storedResponse = response;
 		return response;
