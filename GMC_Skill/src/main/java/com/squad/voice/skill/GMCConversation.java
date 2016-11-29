@@ -283,14 +283,14 @@ public class GMCConversation extends Conversation {
 			
 			randomResp = eventResponses[rand];
 			response = newAskResponse(randomResp + events[0].getTitle() + eventsDate[0] +
-				": " + events[lastRead += 1].getTitle() + eventsDate[1] + ": and " + events[lastRead += 1].getTitle() + eventsDate[2] + " You can ask for information about a specific event, or for more upcoming events" ,false, "You can ask for information about a specific event, or for more upcoming events. You can also ask for help.",false);
+				": " + events[lastRead += 1].getTitle() + eventsDate[1] + ": and " + events[lastRead += 1].getTitle() + eventsDate[2] ,false, "You can ask for information about a specific event, or for more upcoming events. You can also ask for help.",false);
 		
 				
 		}
 		else{
 			randomResp = "The next three events are: ";
 			response = newAskResponse(randomResp + events[lastRead].getTitle() + eventsDate[0] +
-				": " + events[lastRead += 1].getTitle() + eventsDate[1] + ": and " + events[lastRead += 1].getTitle() + eventsDate[2],false, "You can ask for information about a specific event, or for more upcoming events",false);
+				": " + events[lastRead += 1].getTitle() + eventsDate[1] + ": and " + events[lastRead += 1].getTitle() + eventsDate[2] + " You can ask for information about a specific event, or for more upcoming events" ,false, "You can ask for information about a specific event, or for more upcoming events",false);
 		
 		}
 		session.setAttribute(SESSION_EVENT_STATE, STATE_GIVEN_EVENTS);
